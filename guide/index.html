@@ -1,0 +1,50 @@
+---
+layout: default
+title: XDM User Guide
+seo_title: "XDM User Guide: Install, Download Videos, Batch & Schedule | Xtreme Download Manager"
+description: "The complete Xtreme Download Manager user guide: installation on Windows, macOS and Linux, browser extension, downloading videos, batch downloads, scheduling, speed and settings."
+---
+<div class="page-hero page-hero--center">
+  <div class="container">
+    <span class="eyebrow">User guide</span>
+    <h1>Learn to use XDM</h1>
+    <p class="lead">From your first download to scheduled batch jobs: practical, step-by-step guides for every feature.</p>
+    <label class="search-box">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input type="search" placeholder="Filter guides, e.g. video, proxy, schedule" data-filter aria-label="Filter guides">
+    </label>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    {%- assign guides = site.guides | sort: "order" -%}
+    {%- assign groups = guides | group_by: "kicker" -%}
+    {%- for grp in groups %}
+    <div class="hub-group" data-filter-group>
+      <div class="hub-group-head"><h2>{{ grp.name }}</h2></div>
+      <div class="card-grid card-grid--3">
+        {%- for g in grp.items %}
+        <a class="card card--link" href="{{ g.url }}" data-filter-item>
+          <h3>{{ g.short_title | default: g.title }}</h3>
+          <p>{{ g.description }}</p>
+        </a>
+        {%- endfor %}
+      </div>
+    </div>
+    {%- endfor %}
+    <p class="no-results">No guides match. Try the <a href="/help/">troubleshooting center</a> or the <a href="/faq/">FAQ</a>.</p>
+  </div>
+</section>
+
+<section class="section section--muted section--tight">
+  <div class="container">
+    <div class="cta-band">
+      <div>
+        <h2>Something not working?</h2>
+        <p>Look up any XDM error message and get a step-by-step fix.</p>
+      </div>
+      <a class="btn btn-primary" href="/help/">Open the troubleshooting center</a>
+    </div>
+  </div>
+</section>

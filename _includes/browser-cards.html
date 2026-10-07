@@ -1,0 +1,10 @@
+{%- comment -%} Cards linking to /extension/<browser>/. The visitor's browser is highlighted by site.js. {%- endcomment -%}
+<div class="browser-cards">
+  {%- for b in site.data.browsers %}
+  <a class="browser-card" href="/extension/{{ b.key }}/" data-browser="{{ b.key }}" style="--bc: {{ b.color }}">
+    <span class="browser-dot" aria-hidden="true">{{ b.short | slice: 0 }}</span>
+    <span class="browser-card-text"><strong>{{ b.short }}</strong><span>Install the extension →</span></span>
+    <em class="browser-yours" hidden>Your browser</em>
+  </a>
+  {%- endfor %}
+</div>

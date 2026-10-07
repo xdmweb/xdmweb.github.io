@@ -1,0 +1,84 @@
+# Every download the site offers. The download pages, tables and the "download is starting" page are all
+# generated from this file.
+#
+# To release XDM 9: set `status: available` and `tag` to the GitHub release tag (e.g. 9.0.1). File names use
+# {v} for the tag. Files are served from https://github.com/subhra74/xdm/releases/download/<tag>/<file>.
+#
+# Each file has an `id` that is unique per OS; the download links use it (/download/<os>/start/?f=<id>).
+# An entry with `store_url` instead of `name` is a store listing: its button links straight to the store.
+
+base_url: https://github.com/subhra74/xdm/releases/download/
+
+releases:
+  - key: xdm9
+    name: XDM 9
+    status: coming-soon        # coming-soon | available
+    tag: "9.0.1"
+    summary: Rebuilt from the ground up, with native builds for every major platform and processor.
+    platforms:
+      windows:
+        - arch: x64
+          label: 64-bit (x64)
+          hint: Most Windows PCs (Intel and AMD processors)
+          files:
+            - { id: 9-x64-msi, name: "xdm-{v}-x64.msi", kind: MSI installer, recommended: true }
+        - arch: arm64
+          label: ARM64
+          hint: Windows on ARM (Snapdragon / Copilot+ PCs)
+          files:
+            - { id: 9-arm64-msi, name: "xdm-{v}-arm64.msi", kind: MSI installer, recommended: true }
+      macos:
+        - arch: arm64
+          label: Apple silicon
+          hint: M1, M2, M3, M4 and later
+          files:
+            - { id: 9-arm64-dmg, name: "xdm-app-{v}-arm64.dmg", kind: Disk image (DMG), recommended: true }
+        - arch: x64
+          label: Intel
+          hint: Macs with an Intel processor
+          files:
+            - { id: 9-x64-dmg, name: "xdm-app-{v}-x64.dmg", kind: Disk image (DMG), recommended: true }
+      linux:
+        - arch: x64
+          label: x86-64 (amd64)
+          hint: Most desktops and laptops
+          files:
+            - { id: 9-x64-deb, name: "xdm-app_{v}_amd64.deb", kind: .deb package, distros: "Ubuntu, Debian, Mint, Pop!_OS", recommended: true }
+            - { id: 9-x64-rpm, name: "xdm-app-{v}-1.x86_64.rpm", kind: .rpm package, distros: "Fedora, RHEL, openSUSE" }
+            - { id: 9-x64-arch, name: "xdm-app-{v}-1-x86_64.pkg.tar.zst", kind: Arch package, distros: "Arch, Manjaro, EndeavourOS" }
+            - { id: 9-x64-tgz, name: "xdm-app-{v}-linux-x64.tar.gz", kind: tar.gz archive, distros: "Any distribution" }
+        - arch: arm64
+          label: ARM64 (aarch64)
+          hint: ARM laptops, Raspberry Pi 5, ARM servers
+          files:
+            - { id: 9-arm64-deb, name: "xdm-app_{v}_arm64.deb", kind: .deb package, distros: "Ubuntu, Debian, Raspberry Pi OS", recommended: true }
+            - { id: 9-arm64-rpm, name: "xdm-app-{v}-1.aarch64.rpm", kind: .rpm package, distros: "Fedora, openSUSE" }
+            - { id: 9-arm64-tgz, name: "xdm-app-{v}-linux-arm64.tar.gz", kind: tar.gz archive, distros: "Any distribution" }
+
+  - key: xdm8
+    name: XDM 8
+    status: available
+    tag: "8.0.29"
+    summary: The current stable release for Windows and Linux.
+    platforms:
+      windows:
+        - arch: x64
+          label: 64-bit (x64)
+          hint: Windows 10 and 11
+          files:
+            - { id: 8-x64-msi, name: "xdmsetup-{v}.msi", kind: MSI installer, recommended: true }
+            - { id: 8-store, kind: Microsoft Store, store_url: "https://apps.microsoft.com/detail/9n5jjzw4qzbr", distros: "Installs and updates through the Microsoft Store" }
+            - { id: 8-x64-msi-win7, name: "xdmsetup-{v}-win7.msi", kind: MSI installer for Windows 7 }
+      linux:
+        - arch: x64
+          label: x86-64 (amd64)
+          hint: Most desktops and laptops
+          files:
+            - { id: 8-x64-deb, name: "xdman_gtk_{v}_amd64.deb", kind: .deb package, distros: "Ubuntu, Debian, Mint", recommended: true }
+            - { id: 8-x64-rpm, name: "xdman_gtk-{v}-1.fc36.x86_64.rpm", kind: .rpm package, distros: "Fedora, openSUSE" }
+            - { id: 8-x64-arch, name: "xdman_gtk-{v}-1-x86_64.pkg.tar.zst", kind: Arch package, distros: "Arch, Manjaro" }
+
+os:
+  windows: { name: Windows, requirements: "Windows 10 or 11. Java is bundled." }
+  macos: { name: macOS, requirements: "Apple silicon or Intel Mac. Java is bundled." }
+  linux: { name: Linux, requirements: "A 64-bit distribution with a desktop environment. Java is bundled." }

@@ -1,0 +1,59 @@
+title: Xtreme Download Manager
+short_title: XDM
+description: >-
+  Xtreme Download Manager (XDM) is a free, open-source download manager for Windows, macOS and Linux.
+  Download up to 5x faster, resume broken downloads and save streaming video from your browser.
+url: https://xtremedownloadmanager.com
+baseurl: ""
+lang: en
+
+# Google AdSense (Auto ads only: Google places every ad) and Analytics. Change the client id here if the AdSense account changes,
+# and update ads.txt to match.
+adsense_client: ca-pub-3532066332344554
+ga_ids:
+  - G-KWNQZP27ZE
+  - G-LPEMF0VGC2
+
+# Release info used in text. Download tables come from _data/releases.yml.
+current_version: 8.0.29
+current_release_url: https://github.com/subhra74/xdm/releases/tag/8.0.29
+next_version: "9"
+github_url: https://github.com/subhra74/xdm
+forum_url: https://github.com/subhra74/xdm/discussions
+issues_url: https://github.com/subhra74/xdm/issues
+# Extension store links live in _data/extension_stores.yml.
+# redirect.html and xdm-firefox/ are legacy XDM 7 redirects; leave them alone.
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+
+collections:
+  guides:
+    output: true
+    permalink: /guide/:name/
+  help:
+    output: true
+    permalink: /help/:name/
+  errors:
+    output: true
+    permalink: /help/errors/:name/
+
+defaults:
+  - scope: { path: "", type: guides }
+    values: { layout: article, section: guide, section_title: User Guide, section_url: /guide/ }
+  - scope: { path: "", type: help }
+    values: { layout: article, section: help, section_title: Help & Troubleshooting, section_url: /help/ }
+  - scope: { path: "", type: errors }
+    values: { layout: article, section: errors, section_title: Download errors, section_url: /help/#errors }
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - tools
+  - "*.sh"
+

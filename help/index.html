@@ -1,0 +1,88 @@
+---
+layout: default
+title: Help & Troubleshooting
+seo_title: "XDM Help: Fix Download Errors & Common Problems | Xtreme Download Manager"
+description: "Fix Xtreme Download Manager problems: every download error message explained (link expired, network error, disk error, TLS…) plus fixes for browser capture, video detection and slow downloads."
+---
+<div class="page-hero page-hero--center">
+  <div class="container">
+    <span class="eyebrow">Help center</span>
+    <h1>How can we help?</h1>
+    <p class="lead">Find your error message or problem below. Each article explains the cause and walks you through the fix.</p>
+    <label class="search-box">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input type="search" placeholder="Search problems, e.g. expired, slow, extension" data-filter aria-label="Search help articles">
+    </label>
+  </div>
+</div>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="showcase">
+      <div>
+        <span class="eyebrow">From the app</span>
+        <h2>Got here from “How to fix this”?</h2>
+        <p class="muted">When a download fails, XDM shows the reason and a <strong>How to fix this</strong> link that opens the
+          matching page below. Your downloaded data is kept, so most failures can be resumed once the cause is fixed.</p>
+      </div>
+      <div class="showcase-media shot shot--tilt">
+        <img src="/assets/img/shots/progress-failed.webp" alt="XDM progress window showing a failed download with a How to fix this link" width="700" height="450" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="hub-group" id="errors" data-filter-group>
+      <div class="hub-group-head">
+        <div>
+          <h2>Download error messages</h2>
+          <p>Shown in XDM when a download fails. The <strong>How to fix this</strong> link in XDM opens these pages.</p>
+        </div>
+      </div>
+      <div class="card-grid card-grid--3">
+        {%- assign errs = site.errors | sort: "order" -%}
+        {%- for e in errs %}
+        <a class="card card--link" href="{{ e.url }}" data-filter-item>
+          <div class="error-row"><span class="error-dot" aria-hidden="true"></span>
+            <div>
+              <h3>{{ e.short_title }}</h3>
+              <p><code style="font-size:.82rem">{{ e.error_text | truncate: 70 }}</code></p>
+            </div>
+          </div>
+        </a>
+        {%- endfor %}
+      </div>
+    </div>
+
+    <div class="hub-group" data-filter-group>
+      <div class="hub-group-head">
+        <div>
+          <h2>Common problems</h2>
+          <p>Browser integration, videos, speed and startup.</p>
+        </div>
+      </div>
+      <div class="card-grid card-grid--3">
+        {%- assign hs = site.help | sort: "order" -%}
+        {%- for h in hs %}
+        <a class="card card--link" href="{{ h.url }}" data-filter-item>
+          <h3>{{ h.short_title }}</h3>
+          <p>{{ h.description | truncate: 140 }}</p>
+        </a>
+        {%- endfor %}
+      </div>
+    </div>
+    <p class="no-results">Nothing matches. Ask the community on the <a href="{{ site.forum_url }}">XDM forum</a>.</p>
+  </div>
+</section>
+
+<section class="section section--muted section--tight">
+  <div class="container">
+    <div class="card-grid card-grid--3">
+      <a class="card card--link" href="/faq/"><span class="card-kicker">FAQ</span><h3>Frequently asked questions</h3><p>Quick answers about features, platforms and privacy.</p></a>
+      <a class="card card--link" href="{{ site.forum_url }}" rel="noopener"><span class="card-kicker">Community</span><h3>Ask on the forum</h3><p>Get help from other users and the developer on GitHub Discussions.</p></a>
+      <a class="card card--link" href="{{ site.issues_url }}" rel="noopener"><span class="card-kicker">Bugs</span><h3>Report a bug</h3><p>Found a reproducible problem? Open an issue with steps and logs.</p></a>
+    </div>
+  </div>
+</section>
