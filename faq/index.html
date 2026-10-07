@@ -1,0 +1,43 @@
+---
+layout: default
+title: Frequently asked questions
+seo_title: "XDM FAQ: Xtreme Download Manager Questions Answered"
+description: "Answers to common questions about Xtreme Download Manager: is it free and safe, which browsers work, how to download videos, speed up downloads, schedule and resume."
+faq_schema: true
+---
+<div class="page-hero page-hero--center">
+  <div class="container">
+    <span class="eyebrow">FAQ</span>
+    <h1>Frequently asked questions</h1>
+    <p class="lead">Quick answers about XDM. For error messages, see the <a href="/help/">help center</a>.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    {%- assign cats = site.data.faq | group_by: "cat" -%}
+    {%- for c in cats %}
+    <div class="faq-list hub-group">
+      <h2 class="section-title-sm">{{ c.name }}</h2>
+      {%- for item in c.items %}
+      <details{% if forloop.first and forloop.parentloop.first %} open{% endif %}>
+        <summary>{{ item.q }}</summary>
+        <div class="faq-a">{{ item.a | markdownify }}</div>
+      </details>
+      {%- endfor %}
+    </div>
+    {%- endfor %}
+  </div>
+</section>
+
+<section class="section section--muted section--tight">
+  <div class="container">
+    <div class="cta-band">
+      <div>
+        <h2>Didn't find your answer?</h2>
+        <p>Ask the XDM community. Include your XDM version, OS and browser.</p>
+      </div>
+      <a class="btn btn-primary" href="{{ site.forum_url }}" rel="noopener">Ask on the forum</a>
+    </div>
+  </div>
+</section>

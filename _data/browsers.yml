@@ -1,0 +1,37 @@
+# Browsers with an XDM extension page at /extension/<key>/. The app's browser setup opens these pages.
+# store: which store URL from _config.yml the page links to.
+- key: chrome
+  name: Google Chrome
+  short: Chrome
+  store: chrome
+  store_name: Chrome Web Store
+  button: Add to Chrome
+  color: "#4285F4"
+- key: edge
+  name: Microsoft Edge
+  short: Edge
+  store: edge
+  store_name: Chrome Web Store
+  button: Get it for Edge
+  color: "#24B0C4"
+- key: firefox
+  name: Mozilla Firefox
+  short: Firefox
+  store: firefox
+  store_name: Firefox Add-ons
+  button: Add to Firefox
+  color: "#FF7139"
+- key: brave
+  name: Brave
+  short: Brave
+  store: chrome
+  store_name: Chrome Web Store
+  button: Add to Brave
+  color: "#FB542B"
+- key: chromium
+  name: Opera, Vivaldi & other Chromium browsers
+  short: Other Chromium
+  store: chrome
+  store_name: Chrome Web Store
+  button: Open the Chrome Web Store
+  color: "#7C5CFF"

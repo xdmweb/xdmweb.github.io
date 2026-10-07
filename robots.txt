@@ -1,0 +1,10 @@
+---
+layout: null
+permalink: /robots.txt
+---
+User-agent: *
+Allow: /
+Disallow: /redirect.html
+Disallow: /update-checker.html
+
+Sitemap: {{ site.url }}/sitemap.xml

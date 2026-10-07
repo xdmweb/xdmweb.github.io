@@ -1,0 +1,63 @@
+- q: Is Xtreme Download Manager free?
+  a: Yes. XDM is completely free and open-source software, licensed under the GPL. There's no paid version, no trial and no bundled adware. The source code is on [GitHub](https://github.com/subhra74/xdm).
+  cat: General
+- q: Which operating systems does XDM support?
+  a: XDM runs on Windows and Linux today. XDM 9, coming soon, adds a native macOS app for Apple silicon and Intel Macs, plus Windows on ARM. See the [download page](/download/).
+  cat: General
+- q: Do I need to install Java?
+  a: No. The installers include everything XDM needs, including its own Java runtime.
+  cat: General
+- q: Is XDM safe? My antivirus or SmartScreen warns about it.
+  a: XDM is open source and contains no adware or tracking. Because it isn't signed with a paid commercial certificate, Windows SmartScreen and macOS Gatekeeper ask you to confirm the first launch. Download it only from this site or the official GitHub releases. See [antivirus and firewall](/help/antivirus-and-firewall/).
+  cat: General
+- q: Will XDM slow down my computer?
+  a: No. XDM is a native desktop app. It doesn't use Electron, an embedded browser or a webview, so there's no hidden browser engine eating memory. XDM 9 idles at about 30 MB of memory on Windows and only does real work while it downloads. Use the speed limiter in Settings → Downloads if you also want to leave bandwidth for other things.
+  cat: General
+- q: Which browsers work with XDM?
+  a: Google Chrome, Microsoft Edge, Brave, Opera, Vivaldi and other Chromium-based browsers, plus Mozilla Firefox. Install the [XDM browser extension](/guide/browser-extension/) in each browser you use.
+  cat: Browser
+- q: XDM doesn't take over downloads from my browser. How do I fix it?
+  a: Make sure XDM is running, the extension is installed and allowed on all sites, and the file type is listed in Settings → Browser → File types. The full checklist is in [browser not capturing](/help/browser-not-capturing/).
+  cat: Browser
+- q: How do I stop XDM from capturing certain downloads?
+  a: Remove the file type from Settings → Browser → File types, add the website to Blocked sites, or click "Don't capture from this web page" in the New download window.
+  cat: Browser
+- q: How do I download a video from a website?
+  a: Play the video, click the XDM icon in the browser toolbar and choose a quality. XDM downloads the stream and merges audio and video into one file. Step by step in [download videos](/guide/download-streaming-video/).
+  cat: Video
+- q: Why isn't the video I'm watching detected?
+  a: Play the video for a few seconds, then reload if needed. Lower "Only detect videos larger than" for short clips, and check that the extension has site access. DRM-protected streams and YouTube aren't supported. See [video not detected](/help/video-not-detected/).
+  cat: Video
+- q: Can XDM download from YouTube?
+  a: No. XDM stays off YouTube by design, and the extension doesn't capture videos or links there.
+  cat: Video
+- q: How do I get all qualities of a video?
+  a: Change the quality in the website's video player. Each quality the player loads appears in the XDM list. Use "More formats" in the extension popup to see them all.
+  cat: Video
+- q: How do I increase download speed?
+  a: Raise "Connections per download" in Settings → Downloads (8 is the default; try 16), make sure the speed limiter is off, and run fewer downloads at once. See [speed up downloads](/guide/speed-up-downloads/).
+  cat: Downloads
+- q: How can I download files one by one?
+  a: Set Settings → Downloads → Simultaneous downloads to 1. Additional downloads wait and start automatically, one after another.
+  cat: Downloads
+- q: The download link expired while I was downloading. Do I have to start over?
+  a: No. Right-click the download, choose Refresh link and start the same download again in your browser. XDM resumes from where it stopped. See [link expired](/help/errors/link-expired/).
+  cat: Downloads
+- q: Can I schedule downloads for the night?
+  a: Yes. Add the download with Download Later, right-click → Schedule, and set a start (and optionally stop) time. Combine it with "Shut down when downloads finish". See [schedule downloads](/guide/schedule-downloads/).
+  cat: Downloads
+- q: How do I download many files at once?
+  a: Use ☰ → Batch download to paste a list of links, or right-click a page → Download all with XDM. See [batch download](/guide/batch-download/).
+  cat: Downloads
+- q: Where does XDM save my files?
+  a: In your Downloads folder, sorted into category folders by file type (Video, Music, Programs and so on). Change folders and categories in Settings → Folders. See [folders and categories](/guide/categories-and-folders/).
+  cat: Downloads
+- q: Does XDM collect my data?
+  a: No. The XDM app and extension don't collect or send your data to the developer. The extension only talks to the XDM app running on your own computer. This website uses Google Analytics and Google AdSense. See the [privacy policy](/privacy.html).
+  cat: Privacy
+- q: Where are XDM's settings and download list stored?
+  a: In the hidden .xdm-app folder in your home folder (~/.xdm-app on macOS and Linux, %USERPROFILE%\.xdm-app on Windows).
+  cat: Privacy
+- q: How do I report a bug or request a feature?
+  a: Open an issue on [GitHub](https://github.com/subhra74/xdm/issues) with your XDM version, operating system and steps to reproduce, or start a discussion on the [community forum](https://github.com/subhra74/xdm/discussions).
+  cat: Support

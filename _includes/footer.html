@@ -1,0 +1,57 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="/">{% include logo.html %}<span class="brand-text"><strong>XDM</strong><span>Xtreme Download Manager</span></span></a>
+      <p>A free, open-source download manager and video downloader for Windows, macOS and Linux.</p>
+      <p class="footer-social">
+        <a href="{{ site.github_url }}" rel="noopener">GitHub</a>
+        <a href="https://twitter.com/XDM_subhra74" rel="noopener">X / Twitter</a>
+        <a href="{{ site.forum_url }}" rel="noopener">Community forum</a>
+      </p>
+    </div>
+    <div>
+      <h3>Get started</h3>
+      <ul>
+        <li><a href="/download/">Download XDM</a></li>
+        <li><a href="/guide/install-windows/">Install on Windows</a></li>
+        <li><a href="/guide/install-macos/">Install on macOS</a></li>
+        <li><a href="/guide/install-linux/">Install on Linux</a></li>
+        <li><a href="/extension/">Browser extension</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>User guide</h3>
+      <ul>
+        <li><a href="/guide/download-streaming-video/">Download videos</a></li>
+        <li><a href="/guide/batch-download/">Batch download</a></li>
+        <li><a href="/guide/schedule-downloads/">Schedule downloads</a></li>
+        <li><a href="/guide/speed-up-downloads/">Speed up downloads</a></li>
+        <li><a href="/guide/">All guides</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Help</h3>
+      <ul>
+        <li><a href="/help/">Troubleshooting</a></li>
+        <li><a href="/help/#errors">Download error codes</a></li>
+        <li><a href="/help/errors/link-expired/">Link expired</a></li>
+        <li><a href="/help/browser-not-capturing/">Browser not capturing</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="/about/">About XDM</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/privacy.html">Privacy policy</a></li>
+        <li><a href="/terms/">Terms &amp; disclaimer</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>&copy; {{ site.time | date: "%Y" }} Subhra Das Gupta. XDM is free software licensed under the GPL.</p>
+    <p>Download only content you have the right to save.</p>
+  </div>
+</footer>
+<script src="/assets/js/site.js?v={{ site.time | date: '%s' }}" defer></script>

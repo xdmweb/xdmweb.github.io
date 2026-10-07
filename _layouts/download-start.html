@@ -1,0 +1,37 @@
+---
+layout: default
+body_class: page-download-start
+---
+{%- assign R = site.data.releases -%}
+{%- assign osd = R.os[page.os] -%}
+{%- comment -%} Only files of available releases can be started; ids not in this map show the fallback. {%- endcomment -%}
+<script type="application/json" id="dl-files">{
+{%- assign first = true -%}
+{%- for rel in R.releases -%}{%- if rel.status == "available" -%}
+  {%- for ra in rel.platforms[page.os] -%}{%- for f in ra.files -%}{%- if f.name -%}
+    {%- assign fname = f.name | replace: "{v}", rel.tag -%}
+    {%- unless first %},{% endunless %}{% assign first = false %}
+  {{ f.id | jsonify }}: {"url": {{ R.base_url | append: rel.tag | append: "/" | append: fname | jsonify }}, "name": {{ fname | jsonify }}, "release": {{ "XDM " | append: rel.tag | jsonify }}, "arch": {{ ra.label | jsonify }}, "kind": {{ f.kind | jsonify }}}
+  {%- endif -%}{%- endfor -%}{%- endfor -%}
+{%- endif -%}{%- endfor %}
+}</script>
+
+<div class="page-hero page-hero--center start-hero">
+  <div class="container">
+    <div class="start-status" data-dl-status>
+      <div class="start-spinner" aria-hidden="true"></div>
+      <span class="eyebrow">XDM for {{ osd.name }}</span>
+      <h1 data-dl-title>Your download is starting…</h1>
+      <p class="lead" data-dl-detail>Preparing your file.</p>
+      <p class="start-fallback" data-dl-fallback hidden>Download didn't start? <a href="#" data-dl-link rel="nofollow">Click here to download it directly</a>.
+        · <a href="/download/{{ page.os }}/">Choose another file</a></p>
+      <p class="start-fallback" data-dl-missing hidden>We couldn't find that file. <a href="/download/{{ page.os }}/">Choose a file for {{ osd.name }}</a>.</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <article class="prose prose--wide" id="article">
+    {{ content }}
+  </article>
+</div>

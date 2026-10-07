@@ -1,0 +1,122 @@
+{%- assign page_title = page.title | default: site.title -%}
+{%- if page.url == "/" -%}
+  {%- assign full_title = page.seo_title | default: page_title -%}
+{%- else -%}
+  {%- assign full_title = page.seo_title | default: page_title | append: " | XDM" -%}
+{%- endif -%}
+{%- assign page_desc = page.description | default: site.description | strip_newlines | strip -%}
+{%- assign canonical = page.url | replace: "index.html", "" | prepend: site.url -%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ full_title }}</title>
+<meta name="description" content="{{ page_desc | escape }}">
+<link rel="canonical" href="{{ canonical }}">
+{%- if page.robots %}
+<meta name="robots" content="{{ page.robots }}">
+{%- endif %}
+<meta name="theme-color" content="#0b0d1a">
+<meta property="og:type" content="{% if page.layout == 'article' %}article{% else %}website{% endif %}">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:title" content="{{ full_title | escape }}">
+<meta property="og:description" content="{{ page_desc | escape }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:image" content="{{ site.url }}{{ page.image | default: '/assets/img/og-image.jpg' }}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/img/favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+
+<script>
+  /* Apply the saved theme before first paint to avoid a flash. */
+  document.documentElement.className += " js";
+  (function () {
+    try {
+      var t = localStorage.getItem("xdm-theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="/assets/css/site.css?v={{ site.time | date: '%s' }}">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga_ids[0] }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag("js", new Date());
+  {%- for id in site.ga_ids %}
+  gtag("config", "{{ id }}");
+  {%- endfor %}
+</script>
+
+<!-- Google AdSense (Auto ads) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense_client }}" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="{{ site.adsense_client }}">
+
+{%- if page.url == "/" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Xtreme Download Manager",
+  "alternateName": "XDM",
+  "operatingSystem": "Windows, macOS, Linux",
+  "applicationCategory": "UtilitiesApplication",
+  "description": {{ site.description | strip | jsonify }},
+  "url": "{{ site.url }}/",
+  "downloadUrl": "{{ site.url }}/download/",
+  "softwareVersion": "{{ site.current_version }}",
+  "license": "https://www.gnu.org/licenses/gpl-2.0.html",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Person", "name": "Subhra Das Gupta" }
+}
+</script>
+{%- endif %}
+{%- if page.layout == "article" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}/" },
+    { "@type": "ListItem", "position": 2, "name": {{ page.section_title | jsonify }}, "item": "{{ site.url }}{{ page.section_url | split: '#' | first }}" },
+    { "@type": "ListItem", "position": 3, "name": {{ page.title | jsonify }}, "item": "{{ canonical }}" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "{% if page.howto %}HowTo{% else %}TechArticle{% endif %}",
+  {% if page.howto %}"name"{% else %}"headline"{% endif %}: {{ page.title | jsonify }},
+  "description": {{ page_desc | jsonify }},
+  {%- if page.howto %}
+  "step": [
+    {%- for s in page.howto %}
+    { "@type": "HowToStep", "position": {{ forloop.index }}, "text": {{ s | jsonify }} }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ],
+  {%- endif %}
+  "dateModified": "{{ page.updated | default: site.time | date_to_xmlschema }}",
+  "author": { "@type": "Person", "name": "Subhra Das Gupta" },
+  "publisher": { "@type": "Organization", "name": "Xtreme Download Manager", "url": "{{ site.url }}/" }
+}
+</script>
+{%- endif %}
+{%- if page.faq_schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for q in site.data.faq %}
+    { "@type": "Question", "name": {{ q.q | jsonify }}, "acceptedAnswer": { "@type": "Answer", "text": {{ q.a | markdownify | strip_html | strip | jsonify }} } }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>
+{%- endif %}

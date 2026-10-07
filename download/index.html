@@ -1,0 +1,114 @@
+---
+layout: default
+title: Download XDM
+seo_title: "Download Xtreme Download Manager (XDM) Free for Windows, Mac & Linux"
+description: "Download Xtreme Download Manager free for Windows, macOS and Linux, for x64 and ARM64. Find the right version for your computer, and what's new in XDM 9."
+body_class: page-download-hub
+---
+{%- assign R = site.data.releases -%}
+<div class="page-hero page-hero--center dl-hub-hero">
+  <div class="container">
+    <span class="eyebrow">Free download</span>
+    <h1>Download Xtreme Download Manager</h1>
+    <p class="lead">Free, open source and clean: no adware, no bundled offers. Choose your system to see the right files.</p>
+
+    <a class="detected-card" href="/download/windows/" data-detected hidden>
+      <span class="detected-label">Recommended for your computer</span>
+      <strong data-detected-name>XDM for Windows</strong>
+      <span data-detected-arch></span>
+      <span class="detected-go">See downloads →</span>
+    </a>
+
+    <div class="os-picker">
+      {%- for o in R.os %}
+      <a class="os-card" href="/download/{{ o[0] }}/" data-os-card="{{ o[0] }}">
+        {% assign okey = o[0] %}<span class="os-card-icon" aria-hidden="true">{% include os-icon.html os=okey %}</span>
+        <strong>{{ o[1].name }}</strong>
+        <span>{% if o[0] == "windows" %}x64 · ARM64{% elsif o[0] == "macos" %}Apple silicon · Intel{% else %}x86-64 · ARM64{% endif %}</span>
+      </a>
+      {%- endfor %}
+    </div>
+  </div>
+</div>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="soon-banner" id="xdm9">
+      <div>
+        <span class="soon-badge">Coming soon</span>
+        <h2>XDM 9: rebuilt from the ground up</h2>
+        <ul>
+          <li>Native builds for every processor: Windows x64 &amp; ARM64, Mac Apple silicon &amp; Intel, Linux x86-64 &amp; ARM64</li>
+          <li>A modern interface with light and dark themes</li>
+          <li>Faster video downloads with built-in merging, with no extra components</li>
+          <li>Batch downloader, smarter link refresh, start <em>and</em> stop times in the scheduler</li>
+        </ul>
+        <p style="color:#aab0d6">Until then, XDM {{ site.current_version }} is the current release for Windows and Linux.</p>
+      </div>
+      <div class="shot shot--tilt">
+        <img src="/assets/img/shots/hero.webp" alt="XDM 9 main window with a download in progress" width="1200" height="700" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <article class="prose prose--wide">
+    <h2 id="which-version">Which version do I need?</h2>
+    <p>Pick the system you use, then the processor. Each download page pre-selects the processor your computer appears to have.</p>
+    <div class="table-wrap">
+      <table class="version-table avail-table">
+        <thead><tr><th>System</th><th>Processor</th><th>XDM {{ site.current_version }}</th><th>XDM 9</th></tr></thead>
+        <tbody>
+          {%- for o in R.os %}
+            {%- assign archs = R.releases[0].platforms[o[0]] -%}
+            {%- for a in archs %}
+          <tr>
+            {%- if forloop.first %}<td rowspan="{{ archs.size }}"><a href="/download/{{ o[0] }}/">{{ o[1].name }}</a></td>{% endif %}
+            <td>{{ a.label }}<br><span class="muted" style="font-size:.85em">{{ a.hint }}</span></td>
+            {%- assign has8 = false -%}
+            {%- for ra in R.releases[1].platforms[o[0]] %}{% if ra.arch == a.arch %}{% assign has8 = true %}{% endif %}{% endfor %}
+            <td>{% if has8 %}<span class="tag tag--ok">Available</span>{% else %}<span class="muted">—</span>{% endif %}</td>
+            <td><span class="tag tag--brand">Coming soon</span></td>
+          </tr>
+            {%- endfor %}
+          {%- endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>How to tell which processor you have</h3>
+    <ul>
+      <li><strong>Windows:</strong> Settings → System → About → <em>System type</em>. “x64-based” means x64, “ARM-based” means ARM64.</li>
+      <li><strong>Mac:</strong>  → About This Mac. “Chip: Apple M…” means Apple silicon; “Processor: Intel” means Intel.</li>
+      <li><strong>Linux:</strong> run <code>uname -m</code>. <code>x86_64</code> means x86-64, <code>aarch64</code> means ARM64.</li>
+    </ul>
+
+
+    <h2 id="safe">Safe, clean and free</h2>
+    <p>XDM is open-source software, built in public on <a href="{{ site.github_url }}" rel="noopener">GitHub</a>. The installers
+      don't bundle toolbars, adware or “special offers”, and XDM never shows ads inside the app. Because XDM isn't
+      signed with a paid commercial certificate, Windows SmartScreen and macOS Gatekeeper ask you to confirm the first
+      launch. The install guides show exactly what to click.</p>
+    <p><strong>Lightweight, too.</strong> XDM is a native app, not an Electron or webview wrapper, so it doesn't run a hidden
+      browser engine in the background. XDM 9 idles at about 30 MB of memory on Windows, leaving your computer free for actual work.</p>
+    <p>Download XDM only from this site or the official GitHub releases. Copies on third-party download portals can be
+      repackaged with unwanted software.</p>
+
+    <h2 id="after">After you install</h2>
+    <p>Add the free browser extension so XDM can take over downloads and save the videos you watch:</p>
+    {% include browser-cards.html %}
+
+
+    <h2 id="faq">Download questions</h2>
+    <h3>Is XDM really free?</h3>
+    <p>Yes. There's no paid edition, trial or feature limit. The website is supported by ads.</p>
+    <h3>Do I need Java?</h3>
+    <p>No. Every installer includes the runtime XDM needs.</p>
+    <h3>Can I keep XDM 8 and install XDM 9?</h3>
+    <p>No. Both use the same browser connection, so XDM 9's installer replaces XDM 8. See
+      <a href="/guide/update-and-migrate/">Update &amp; migrate</a>.</p>
+    <h3>Where are older versions?</h3>
+    <p>In the <a href="/download/archive/">version archive</a>. Older versions are unsupported and may not work with current browsers.</p>
+  </article>
+</div>

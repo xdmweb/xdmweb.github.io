@@ -1,0 +1,16 @@
+---
+layout: default
+---
+<div class="page-hero page-hero--sm">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">{{ page.title }}</span></nav>
+    <h1>{{ page.title }}</h1>
+    {%- if page.lead %}<p class="lead">{{ page.lead }}</p>{% endif %}
+    {%- if page.updated %}<p class="article-meta"><span>Updated {{ page.updated | date: "%B %-d, %Y" }}</span></p>{% endif %}
+  </div>
+</div>
+<div class="container article-layout article-layout--plain">
+  <article class="prose" id="article">
+    {{ content }}
+  </article>
+</div>

@@ -1,0 +1,16 @@
+---
+layout: null
+permalink: /sitemap.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- assign pages = site.pages | where_exp: "p", "p.url contains '/' " -%}
+{%- for p in pages %}
+{%- unless p.robots or p.url contains ".xml" or p.url contains "404" or p.url contains "redirect" or p.url contains "update-checker" or p.url contains "google" or p.url contains "xdm-firefox" or p.url contains ".txt" or p.url contains ".css" or p.url contains ".js" %}
+  <url><loc>{{ site.url }}{{ p.url | replace: "index.html", "" }}</loc><lastmod>{{ site.time | date_to_xmlschema }}</lastmod></url>
+{%- endunless %}
+{%- endfor %}
+{%- for d in site.documents %}
+  <url><loc>{{ site.url }}{{ d.url }}</loc><lastmod>{{ d.updated | default: site.time | date_to_xmlschema }}</lastmod></url>
+{%- endfor %}
+</urlset>

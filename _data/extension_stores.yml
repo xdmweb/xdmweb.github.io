@@ -1,0 +1,7 @@
+# Store listings for the XDM browser extension. The /extension/ pages (which the XDM app opens) link to these.
+# Put the new XDM 9 extension URLs here. Until then, chrome and firefox are the XDM 8 listings.
+# edge: leave empty to send Edge users to the Chrome Web Store (Edge can install Chrome extensions).
+
+chrome: https://chromewebstore.google.com/detail/akdmdglbephckgfmdffcdebnpjgamofc
+firefox: https://addons.mozilla.org/en-US/firefox/addon/xdm-browser-monitor-v8/
+edge: ""

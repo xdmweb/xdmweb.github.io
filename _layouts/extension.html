@@ -1,0 +1,59 @@
+---
+layout: default
+body_class: page-extension
+---
+{%- assign b = site.data.browsers | where: "key", page.browser | first -%}
+{%- assign stores = site.data.extension_stores -%}
+{%- case b.store -%}
+  {%- when "firefox" -%}{%- assign store_url = stores.firefox -%}
+  {%- when "edge" -%}{%- assign store_url = stores.edge | default: stores.chrome -%}
+  {%- else -%}{%- assign store_url = stores.chrome -%}
+{%- endcase -%}
+{%- if b.store == "edge" and stores.edge.size > 0 -%}{%- assign store_name = "Microsoft Edge Add-ons" -%}{%- elsif b.store == "edge" -%}{%- assign store_name = "Chrome Web Store" -%}{%- else -%}{%- assign store_name = b.store_name -%}{%- endif -%}
+<div class="page-hero ext-hero" style="--bc: {{ b.color }}">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span><a href="/extension/">Browser extension</a><span aria-hidden="true">/</span><span aria-current="page">{{ b.short }}</span>
+    </nav>
+    <div class="ext-panel" data-ext-browser="{{ b.key }}">
+      <div class="ext-panel-main">
+        <span class="browser-dot browser-dot--lg" aria-hidden="true">{{ b.short | slice: 0 }}</span>
+        <div>
+          <span class="eyebrow">XDM Integration Module</span>
+          <h1>{{ page.title }}</h1>
+          <p class="lead">{{ page.lead }}</p>
+        </div>
+      </div>
+      <div class="ext-cta">
+        <a class="btn btn-primary btn-lg" href="{{ store_url }}" target="_blank" rel="noopener" data-store-link>{{ b.button }}</a>
+        <p class="ext-cta-note">Opens the {{ store_name }} in a new tab. Free, and no account needed.</p>
+      </div>
+      <p class="ext-mismatch" data-ext-mismatch hidden></p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <article class="prose prose--wide" id="article">
+    <div class="ext-next" id="finish" data-ext-next>
+      <h2>Finish setup in four steps</h2>
+      <ol class="steps-list">
+        <li><strong>Click <span class="ui">{{ b.button }}</span></strong> above. The {{ store_name }} opens in a new tab.</li>
+        <li><strong>Confirm</strong> with <span class="ui">{% if b.store == "firefox" %}Add{% else %}Add extension{% endif %}</span> in the store and in the browser's prompt.</li>
+        <li><strong>Pin the XDM icon</strong>: click the puzzle-piece icon in the toolbar and pin <em>XDM Integration Module</em>.
+          Detected videos appear there.</li>
+        <li><strong>Make sure XDM is running</strong>, then download any ZIP or installer. XDM's <em>New download</em> window should appear.</li>
+      </ol>
+    </div>
+
+    {{ content }}
+  </article>
+</div>
+
+<section class="section section--muted section--tight">
+  <div class="container">
+    <h2 class="section-title-sm">Using a different browser?</h2>
+    {% include browser-cards.html %}
+
+  </div>
+</section>

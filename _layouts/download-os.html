@@ -1,0 +1,104 @@
+---
+layout: default
+body_class: page-download
+---
+{%- assign R = site.data.releases -%}
+{%- assign osd = R.os[page.os] -%}
+{%- assign archs = R.releases[0].platforms[page.os] -%}
+<div class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span><a href="/download/">Download</a><span aria-hidden="true">/</span><span aria-current="page">{{ osd.name }}</span>
+    </nav>
+    <span class="eyebrow">Free download · {{ osd.name }}</span>
+    <h1>{{ page.title }}</h1>
+    <p class="lead">{{ page.lead }}</p>
+  </div>
+</div>
+
+<section class="section section--tight">
+  <div class="container">
+        <div class="dl-panel" data-os="{{ page.os }}">
+      <div class="dl-panel-head">
+        <h2>Choose your processor</h2>
+        <div class="arch-tabs" role="tablist" aria-label="Processor architecture">
+          {%- for a in archs %}
+          <button class="arch-tab" role="tab" type="button" data-arch="{{ a.arch }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+            <strong>{{ a.label }}</strong><span>{{ a.hint }}</span><em class="arch-detected" hidden>Your computer</em>
+          </button>
+          {%- endfor %}
+        </div>
+      </div>
+
+      {%- for a in archs %}
+      <div class="arch-panel" data-arch="{{ a.arch }}" role="tabpanel">
+        <h3 class="arch-panel-title">{{ osd.name }} · {{ a.label }}</h3>
+        {%- assign shown_available = false -%}
+        {%- comment -%} Available releases first, so the files you can download are at the top. {%- endcomment -%}
+        {%- assign soon = R.releases | where: "status", "coming-soon" -%}
+        {%- assign ordered = R.releases | where: "status", "available" | concat: soon -%}
+        {%- for rel in ordered -%}
+          {%- assign rel_archs = rel.platforms[page.os] -%}
+          {%- for ra in rel_archs -%}
+            {%- if ra.arch == a.arch %}
+        <div class="rel-block rel-block--{{ rel.status }}">
+          <div class="rel-head">
+            <div>
+              <h4>{{ rel.name }} <span class="rel-version">{{ rel.tag }}</span>
+                {%- if rel.status == "available" %}<span class="tag tag--ok">Available now</span>{% else %}<span class="tag tag--brand">Coming soon</span>{% endif %}</h4>
+              <p>{{ rel.summary }}</p>
+            </div>
+          </div>
+          <ul class="file-list">
+            {%- for f in ra.files %}
+            {%- if f.name %}{% assign fname = f.name | replace: "{v}", rel.tag %}{% else %}{% assign fname = nil %}{% endif %}
+            <li class="file-row{% if f.recommended %} file-row--rec{% endif %}">
+              <div class="file-info">
+                <span class="file-kind">{{ f.kind }}{% if f.recommended and ra.files.size > 1 %} <span class="tag">Recommended</span>{% endif %}</span>
+                {%- if fname %}<code class="file-name">{{ fname }}</code>{% endif %}
+                {%- if f.distros %}<span class="file-distros">{{ f.distros }}</span>{% endif %}
+              </div>
+              {%- if rel.status == "available" and f.store_url %}
+              <a class="btn btn-ghost btn-sm" href="{{ f.store_url }}" target="_blank" rel="noopener">Get it from Microsoft Store</a>
+              {%- elsif rel.status == "available" %}
+              <a class="btn btn-primary btn-sm" href="/download/{{ page.os }}/start/?f={{ f.id }}" rel="nofollow">Download</a>
+              {%- else %}
+              <span class="btn btn-ghost btn-sm" aria-disabled="true">Coming soon</span>
+              {%- endif %}
+            </li>
+            {%- endfor %}
+          </ul>
+        </div>
+              {%- if rel.status == "available" %}{% assign shown_available = true %}{% endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor %}
+        {%- unless shown_available %}
+        <p class="arch-note">{{ page.unavailable_note[a.arch] | default: page.unavailable_note.all }}</p>
+        {%- endunless %}
+      </div>
+      {%- endfor %}
+      <p class="dl-panel-foot">Files are served from the official <a href="https://github.com/subhra74/xdm/releases" rel="noopener">GitHub releases</a>.
+        Older versions: <a href="/download/archive/">version archive</a>.</p>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <article class="prose prose--wide">
+    {{ content }}
+  </article>
+</div>
+
+<section class="section section--muted section--tight">
+  <div class="container">
+    <h2 class="section-title-sm">Other platforms</h2>
+    <div class="card-grid card-grid--3">
+      {%- for o in R.os %}{% unless o[0] == page.os %}
+      <a class="card card--link" href="/download/{{ o[0] }}/"><span class="card-kicker">Download</span><h3>XDM for {{ o[1].name }}</h3><p>{{ o[1].requirements }}</p></a>
+      {%- endunless %}{% endfor %}
+      <a class="card card--link" href="/extension/"><span class="card-kicker">Browser extension</span><h3>Connect your browser</h3><p>Chrome, Firefox, Edge, Brave and other Chromium browsers.</p></a>
+    </div>
+
+  </div>
+</section>

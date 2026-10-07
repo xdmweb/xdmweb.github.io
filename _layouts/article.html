@@ -1,0 +1,106 @@
+---
+layout: default
+body_class: page-article
+---
+{%- assign coll = site[page.collection] | sort: "order" -%}
+<div class="page-hero page-hero--sm">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span>
+      <a href="{{ page.section_url }}">{{ page.section_title }}</a><span aria-hidden="true">/</span>
+      <span aria-current="page">{{ page.short_title | default: page.title }}</span>
+    </nav>
+    {%- if page.error_text %}
+    <p class="eyebrow eyebrow--error">Error message in XDM</p>
+    <p class="error-quote">“{{ page.error_text }}”</p>
+    {%- elsif page.kicker %}
+    <p class="eyebrow">{{ page.kicker }}</p>
+    {%- endif %}
+    <h1>{{ page.title }}</h1>
+    {%- if page.lead %}<p class="lead">{{ page.lead }}</p>{% endif %}
+    <p class="article-meta">
+      <span>Updated {{ page.updated | default: site.time | date: "%B %-d, %Y" }}</span>
+      <span aria-hidden="true">·</span>
+      <span>{{ content | number_of_words | divided_by: 200 | at_least: 1 }} min read</span>
+      {%- if page.applies %}<span aria-hidden="true">·</span><span>{{ page.applies }}</span>{% endif %}
+    </p>
+  </div>
+</div>
+
+<div class="container article-layout">
+  <article class="prose" id="article">
+    {{ content }}
+
+    <aside class="callout callout--help">
+      <h2 class="callout-title">Still stuck?</h2>
+      <p>Search the <a href="/help/">troubleshooting guides</a> or ask on the
+        <a href="{{ site.forum_url }}" rel="noopener">XDM community forum</a>. Include your XDM version, operating system,
+        browser and the exact error message so others can reproduce the problem.</p>
+    </aside>
+
+    {%- for p in coll -%}
+      {%- if p.url == page.url -%}
+        {%- assign idx = forloop.index0 -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- assign prev_i = idx | minus: 1 -%}
+    {%- assign next_i = idx | plus: 1 -%}
+    <nav class="pager" aria-label="More in {{ page.section_title }}">
+      {%- if idx > 0 %}{% assign pp = coll[prev_i] %}
+      <a class="pager-link" href="{{ pp.url }}"><span>Previous</span>{{ pp.short_title | default: pp.title }}</a>
+      {%- else %}<span></span>{% endif %}
+      {%- if next_i < coll.size %}{% assign np = coll[next_i] %}
+      <a class="pager-link pager-link--next" href="{{ np.url }}"><span>Next</span>{{ np.short_title | default: np.title }}</a>
+      {%- endif %}
+    </nav>
+  </article>
+
+  <aside class="article-aside" aria-label="On this page">
+    <div class="toc-card">
+      <p class="toc-title">On this page</p>
+      <nav class="toc" id="toc"></nav>
+      <a class="toc-top" href="#top">Back to top ↑</a>
+    </div>
+    <div class="aside-card">
+      <p class="toc-title">{{ page.section_title }}</p>
+      <ul class="aside-list">
+        {%- for p in coll limit: 14 %}
+        <li><a href="{{ p.url }}" {% if p.url == page.url %}aria-current="page"{% endif %}>{{ p.short_title | default: p.title }}</a></li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<section class="section section--muted related">
+  <div class="container">
+    <h2 class="section-title-sm">Related articles</h2>
+    <div class="card-grid card-grid--3">
+      {%- assign shown = 0 -%}
+      {%- assign related = page.related | default: empty -%}
+      {%- for r in related -%}
+        {%- assign rp = site.documents | where: "url", r | first -%}
+        {%- if rp and shown < 6 %}
+        <a class="card card--link" href="{{ rp.url }}">
+          <span class="card-kicker">{{ rp.section_title }}</span>
+          <h3>{{ rp.short_title | default: rp.title }}</h3>
+          <p>{{ rp.description }}</p>
+        </a>
+        {%- assign shown = shown | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for rp in coll -%}
+        {%- if shown < 6 and rp.url != page.url -%}
+          {%- unless related contains rp.url %}
+        <a class="card card--link" href="{{ rp.url }}">
+          <span class="card-kicker">{{ rp.section_title }}</span>
+          <h3>{{ rp.short_title | default: rp.title }}</h3>
+          <p>{{ rp.description }}</p>
+        </a>
+          {%- assign shown = shown | plus: 1 -%}
+          {%- endunless -%}
+        {%- endif -%}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
