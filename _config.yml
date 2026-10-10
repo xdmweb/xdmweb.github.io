@@ -9,7 +9,7 @@ lang: en
 
 # Google AdSense (Auto ads only: Google places every ad) and Analytics. Change the client id here if the AdSense account changes,
 # and update ads.txt to match.
-adsense_client: ca-pub-3532066332344554
+adsense_client: ca-pub-5694541550482111
 ga_ids:
   - G-KWNQZP27ZE
   - G-LPEMF0VGC2
