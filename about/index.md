@@ -22,11 +22,6 @@ contributors and translators around the world. The full source code is on
 - **Privacy first.** The app and extension don't track you. Your downloads stay on your computer.
 - **Respect for creators.** XDM doesn't circumvent DRM and stays off YouTube.
 
-## How this website is funded
-
-Ads on this website, served by Google AdSense, help cover development and hosting so XDM can stay free.
-Ads are never shown inside the XDM app.
-
 ## Get involved
 
 - Report bugs and request features on the [issue tracker](https://github.com/subhra74/xdm/issues).

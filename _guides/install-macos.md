@@ -3,7 +3,7 @@ title: "How to install XDM on macOS"
 short_title: Install on macOS
 order: 2
 kicker: Getting started
-description: "Install Xtreme Download Manager on a Mac (Apple silicon and Intel): open the DMG, get past the Gatekeeper warning with Open Anyway, allow notifications and connect your browser."
+description: "Install Xtreme Download Manager on a Mac (Apple silicon and Intel): open the DMG, get past the Gatekeeper warning (Terminal or Open Anyway), allow notifications and connect your browser."
 lead: "XDM 9 runs natively on Apple silicon and Intel Macs. Here's how to install it and get past the first-launch security prompt."
 applies: Apple silicon and Intel Macs
 related:
@@ -13,7 +13,7 @@ related:
 howto:
   - "Download the DMG for your Mac (Apple silicon arm64 or Intel x64)."
   - "Open the DMG and drag XDM to the Applications folder."
-  - "Open XDM from Applications; if macOS blocks it, open System Settings → Privacy & Security and click Open Anyway."
+  - "Open XDM from Applications; if macOS blocks it, run xattr -dr com.apple.quarantine /Applications/xdm-app.app in Terminal, or open System Settings → Privacy & Security and click Open Anyway."
   - "Install the browser extension from the Set up browser integration window."
 ---
 
@@ -38,9 +38,15 @@ Not sure? Open  → <em>About This Mac</em>. “Chip: Apple M…” means Apple 
   <li><strong>Open the DMG</strong> you downloaded. A window named <em>XDM</em> appears.</li>
   <li><strong>Drag the XDM app onto the Applications folder</strong> shortcut in that window.</li>
   <li><strong>Eject the DMG</strong> and open XDM from Applications or Launchpad.</li>
-  <li><strong>If macOS says it can't verify the developer</strong>, click <span class="ui">Done</span>, then open
-      <em>System Settings → Privacy &amp; Security</em>, scroll down and click <span class="ui">Open Anyway</span>
-      next to the XDM message. Confirm once more. macOS remembers the choice.</li>
+  <li><strong>If macOS blocks XDM</strong> (“can't verify the developer” or “XDM is damaged”), allow it in one
+      of two ways. You only need to do this once.
+      <ul>
+        <li><strong>Terminal:</strong> open <em>Terminal</em> and run
+            <code>xattr -dr com.apple.quarantine /Applications/xdm-app.app</code>, then open XDM again.</li>
+        <li><strong>System Settings:</strong> click <span class="ui">Done</span>, open
+            <em>System Settings → Privacy &amp; Security</em>, scroll down and click
+            <span class="ui">Open Anyway</span> next to the XDM message. Confirm once more.</li>
+      </ul></li>
   <li><strong>Install the browser extension</strong> from the <em>Set up browser integration</em> window that
       opens on first start.</li>
 </ol>
