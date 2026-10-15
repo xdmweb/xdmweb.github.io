@@ -17,7 +17,7 @@ XDM isn't signed with a paid commercial certificate, so Windows SmartScreen and 
 confirmation the first time:
 
 - **Windows:** <span class="ui">More info</span> → <span class="ui">Run anyway</span>.
-- **macOS:** *System Settings → Privacy &amp; Security* → <span class="ui">Open Anyway</span>.
+- **macOS:** run `xattr -dr com.apple.quarantine /Applications/xdm-app.app` in Terminal, or go to *System Settings → Privacy &amp; Security* → <span class="ui">Open Anyway</span>.
 
 Only do this for installers from [this site](/download/) or the official
 [GitHub releases](https://github.com/subhra74/xdm/releases).

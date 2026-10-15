@@ -13,12 +13,28 @@ unavailable_note:
 
 <ol class="steps-list">
   <li><strong>Open the DMG</strong> and drag <em>XDM</em> into the Applications folder.</li>
-  <li><strong>Open XDM.</strong> If macOS can't verify the developer, go to <em>System Settings → Privacy &amp; Security</em>
-      and click <span class="ui">Open Anyway</span>. You only need to do this once.</li>
+  <li><strong>Open XDM.</strong> If macOS blocks it, click <span class="ui">Open Anyway</span> in
+      <em>System Settings → Privacy &amp; Security</em> (<a href="#if-macos-blocks-xdm">steps below</a>). You only need to do this once.</li>
   <li><strong>Install the <a href="/extension/">browser extension</a></strong> from the setup window.</li>
 </ol>
 
 Full walkthrough: [Install XDM on macOS](/guide/install-macos/).
+
+## If macOS blocks XDM
+
+The first time you open XDM, macOS may say it can't check XDM for malicious software. Allow it once:
+
+<ol class="steps-list">
+  <li><strong>Try to open XDM</strong> from Applications. When the warning appears, click <span class="ui">Done</span>
+      (not <span class="ui">Move to Bin</span>).</li>
+  <li><strong>Open System Settings → Privacy &amp; Security</strong> and scroll down to the <em>Security</em> section.</li>
+  <li><strong>Click <span class="ui">Open Anyway</span></strong> next to the message about XDM. It only shows for about
+      an hour after you tried to open the app, so if it's missing, open XDM again first.</li>
+  <li><strong>Confirm</strong>: click <span class="ui">Open Anyway</span> in the dialog and enter your password or use
+      Touch ID. XDM starts, and macOS won't ask again.</li>
+</ol>
+
+Prefer Terminal? Run <code>xattr -dr com.apple.quarantine /Applications/xdm-app.app</code>, then open XDM.
 
 
 ## Apple silicon or Intel?

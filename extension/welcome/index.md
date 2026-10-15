@@ -21,7 +21,10 @@ robots: noindex
 
 <ol class="steps-list">
   <li><strong>Pin the XDM icon.</strong> Click the puzzle-piece icon in the browser toolbar and pin
-    <em>XDM Integration Module</em>. Videos the extension finds appear there, with a counter on the icon.</li>
+    <em>XDM Integration Module</em>. Videos the extension finds appear there, with a counter on the icon.
+    <figure>
+      <img src="/assets/img/shots/pin-extension.webp" alt="Pinning XDM Integration Module from the browser's puzzle-piece extensions menu" width="960" height="756" loading="lazy">
+    </figure></li>
   <li><strong>Make sure the XDM app is running.</strong> The extension hands everything to the XDM app on your computer.
     Don't have it yet? <a href="/download/">Download XDM</a>, free for Windows, macOS and Linux.</li>
   <li><strong>Try it.</strong> Click a download link for a ZIP or installer on any site. XDM's <em>New download</em>
