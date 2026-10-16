@@ -239,18 +239,38 @@ body_class: page-home
       <h2>Get Xtreme Download Manager</h2>
       <p>Free for everyone, forever. No sign-up, no adware, no bundled software.</p>
     </div>
-    <div class="card-grid card-grid--2 reveal">
-      <div class="card">
-        <span class="card-kicker">Available now</span>
-        <h3>XDM {{ site.current_version }}</h3>
-        <p>The current release for Windows and Linux.</p>
-        <p style="margin-top:18px"><a class="btn btn-primary" href="/download/">Download {{ site.current_version }}</a></p>
+    {%- assign R = site.data.releases -%}
+    {%- assign x9 = R.releases[0] %}
+    <div class="dl-home reveal">
+      <div class="card dl-home-main">
+        <span class="card-kicker">Recommended <span class="tag tag--warn">Pre-release</span></span>
+        <h3>XDM 9 <span class="rel-version">{{ x9.display }}</span></h3>
+        <p>{{ x9.summary }}</p>
+        <ul class="dl-home-points">
+          <li>Native on Windows x64 &amp; ARM64, Mac Apple silicon &amp; Intel, Linux x86-64 &amp; ARM64</li>
+          <li>New interface with light and dark themes</li>
+          <li>Faster video downloads, batch downloader, smarter link refresh</li>
+        </ul>
+        <p class="dl-home-cta"><a class="btn btn-primary btn-lg" href="/download/" data-dl-primary>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-dl-primary-label>Download XDM 9</span></a></p>
+        <div class="os-picker dl-home-os">
+          {%- for o in R.os %}
+          <a class="os-card" href="/download/{{ o[0] }}/" data-os-link="{{ o[0] }}">
+            {% assign okey = o[0] %}<span class="os-card-icon" aria-hidden="true">{% include os-icon.html os=okey %}</span>
+            <strong>{{ o[1].name }}</strong>
+            <span>{% if o[0] == "windows" %}MSI · x64, ARM64{% elsif o[0] == "macos" %}DMG · Apple silicon, Intel{% else %}deb · rpm · Arch · tar.gz{% endif %}</span>
+          </a>
+          {%- endfor %}
+        </div>
+        <p class="dl-home-note">A test build: expect rough edges, and <a href="{{ site.issues_url }}" rel="noopener">tell us</a> what breaks. It replaces XDM 8 when installed.</p>
       </div>
-      <div class="card">
-        <span class="card-kicker">Pre-release <span class="tag tag--brand">New</span></span>
-        <h3>XDM {{ site.next_version }}</h3>
-        <p>Rebuilt from the ground up: new interface, native macOS, faster video and batch downloads.</p>
-        <p style="margin-top:18px"><a class="btn btn-ghost" href="/download/#xdm9">Try the XDM {{ site.next_version }} pre-release</a></p>
+      <div class="card dl-home-side">
+        <span class="card-kicker">Stable <span class="tag tag--ok">Older</span></span>
+        <h3>XDM {{ site.current_version }}</h3>
+        <p>The previous generation, for Windows and Linux (x64 only). Pick it if you'd rather wait for the final XDM 9.</p>
+        <p style="margin-top:18px"><a class="btn btn-ghost" href="/download/windows/">Windows</a> <a class="btn btn-ghost" href="/download/linux/">Linux</a></p>
+        <p class="dl-home-note">On the download pages, XDM {{ site.current_version }} is listed below XDM 9.</p>
       </div>
     </div>
   </div>

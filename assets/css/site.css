@@ -738,3 +738,16 @@ code, kbd { font-family: var(--mono); font-size: .86em; }
   .file-info { flex-basis: calc(100% - 56px); }
   .file-row > .btn { margin-left: 56px; }
 }
+
+/* ---------- Home: download section ---------- */
+.dl-home { display: grid; grid-template-columns: 1.7fr 1fr; gap: 20px; align-items: start; }
+.dl-home-main { border-color: color-mix(in srgb, var(--brand) 40%, var(--border)); box-shadow: var(--shadow);
+  background: radial-gradient(600px 240px at 100% 0%, color-mix(in srgb, var(--brand) 9%, transparent), transparent 70%), var(--surface); }
+.dl-home-main h3 { font-size: 1.5rem; }
+.dl-home-points { margin: 12px 0 0; padding-left: 1.2em; color: var(--text-2); font-size: .95rem; line-height: 1.7; }
+.dl-home-cta { margin-top: 20px !important; }
+.dl-home-os { margin: 18px 0 0; max-width: none; }
+.dl-home-os .os-card { padding: 16px 10px; }
+.dl-home-os .os-card span:last-child { text-align: center; }
+.dl-home-note { margin-top: 14px !important; font-size: .86rem !important; color: var(--muted) !important; }
+@media (max-width: 860px) { .dl-home { grid-template-columns: 1fr; } }

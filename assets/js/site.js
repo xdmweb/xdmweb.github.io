@@ -166,6 +166,19 @@
       if (card) card.classList.add("is-detected");
     }
 
+    // Home page download section: point the main button and the visitor's OS card at their platform.
+    var primary = document.querySelector("[data-dl-primary]");
+    if (primary && sys.os) {
+      primary.href = "/download/" + sys.os + "/#" + sys.arch;
+      primary.querySelector("[data-dl-primary-label]").textContent = "Download XDM 9 for " + OS_NAMES[sys.os];
+    }
+    document.querySelectorAll("[data-os-link]").forEach(function (a) {
+      if (sys.os && a.getAttribute("data-os-link") === sys.os) {
+        a.href = "/download/" + sys.os + "/#" + sys.arch;
+        a.classList.add("is-detected");
+      }
+    });
+
     // Per-OS page: architecture tabs.
     var panel = document.querySelector(".dl-panel[data-os]");
     if (panel) {
