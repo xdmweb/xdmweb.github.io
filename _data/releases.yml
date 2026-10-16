@@ -1,8 +1,9 @@
 # Every download the site offers. The download pages, tables and the "download is starting" page are all
 # generated from this file.
 #
-# To release XDM 9: set `status: available` and `tag` to the GitHub release tag (e.g. 9.0.1). File names use
-# {v} for the tag. Files are served from https://github.com/subhra74/xdm/releases/download/<tag>/<file>.
+# Statuses: coming-soon (listed, not downloadable), pre-release (downloadable, marked as a test build) and available.
+# `tag` is the GitHub release tag; file names use {v} for `version` (or the tag when there's no `version`).
+# `size` is shown next to each file (MiB, as GitHub shows it), `icon` picks the file-type badge (_includes/file-icon.html). Files are served from https://github.com/subhra74/xdm/releases/download/<tag>/<file>.
 #
 # Each file has an `id` that is unique per OS; the download links use it (/download/<os>/start/?f=<id>).
 # An entry with `store_url` instead of `name` is a store listing: its button links straight to the store.
@@ -12,48 +13,66 @@ base_url: https://github.com/subhra74/xdm/releases/download/
 releases:
   - key: xdm9
     name: XDM 9
-    status: coming-soon        # coming-soon | available
-    tag: "9.0.1"
+    status: pre-release        # coming-soon | pre-release | available
+    tag: "v9.0.1-pre.3"        # GitHub release tag (download folder)
+    version: "9.0.1"           # {v} in file names; defaults to tag
+    display: "9.0.1 pre-release 3"
     summary: Rebuilt from the ground up, with native builds for every major platform and processor.
+    note: >-
+      This is a pre-release for testing. It works for everyday downloads, but expect rough edges. Please
+      report problems on GitHub. It replaces XDM 8 when installed.
     platforms:
       windows:
         - arch: x64
           label: 64-bit (x64)
           hint: Most Windows PCs (Intel and AMD processors)
           files:
-            - { id: 9-x64-msi, name: "xdm-{v}-x64.msi", kind: MSI installer, recommended: true }
+            - { id: 9-x64-msi, icon: msi, name: "xdm-{v}-x64.msi", size: "45 MB", kind: Windows installer (MSI), recommended: true,
+                desc: "Installs to Program Files with Start menu and desktop shortcuts, starts with Windows, and removes an MSI-installed XDM 8." }
         - arch: arm64
           label: ARM64
           hint: Windows on ARM (Snapdragon / Copilot+ PCs)
           files:
-            - { id: 9-arm64-msi, name: "xdm-{v}-arm64.msi", kind: MSI installer, recommended: true }
+            - { id: 9-arm64-msi, icon: msi, name: "xdm-{v}-arm64.msi", size: "44 MB", kind: Windows installer (MSI), recommended: true,
+                desc: "Native ARM64 build: no x64 emulation, so it starts faster and uses less battery. Same shortcuts and autostart as the x64 installer." }
       macos:
         - arch: arm64
           label: Apple silicon
           hint: M1, M2, M3, M4 and later
           files:
-            - { id: 9-arm64-dmg, name: "xdm-app-{v}-arm64.dmg", kind: Disk image (DMG), recommended: true }
+            - { id: 9-arm64-dmg, icon: dmg, name: "xdm-app-{v}-arm64.dmg", size: "59 MB", kind: Disk image (DMG), recommended: true,
+                desc: "Open it and drag XDM into Applications. Runs natively on Apple silicon. macOS asks you to confirm the first launch." }
         - arch: x64
           label: Intel
           hint: Macs with an Intel processor
           files:
-            - { id: 9-x64-dmg, name: "xdm-app-{v}-x64.dmg", kind: Disk image (DMG), recommended: true }
+            - { id: 9-x64-dmg, icon: dmg, name: "xdm-app-{v}-x64.dmg", size: "62 MB", kind: Disk image (DMG), recommended: true,
+                desc: "For Intel Macs. Open it and drag XDM into Applications. macOS asks you to confirm the first launch." }
       linux:
         - arch: x64
           label: x86-64 (amd64)
           hint: Most desktops and laptops
           files:
-            - { id: 9-x64-deb, name: "xdm-app_{v}_amd64.deb", kind: .deb package, distros: "Ubuntu, Debian, Mint, Pop!_OS", recommended: true }
-            - { id: 9-x64-rpm, name: "xdm-app-{v}-1.x86_64.rpm", kind: .rpm package, distros: "Fedora, RHEL, openSUSE" }
-            - { id: 9-x64-arch, name: "xdm-app-{v}-1-x86_64.pkg.tar.zst", kind: Arch package, distros: "Arch, Manjaro, EndeavourOS" }
-            - { id: 9-x64-tgz, name: "xdm-app-{v}-linux-x64.tar.gz", kind: tar.gz archive, distros: "Any distribution" }
+            - { id: 9-x64-deb, icon: deb, name: "xdm-app_{v}_amd64.deb", size: "62 MB", kind: Debian / Ubuntu package (.deb), distros: "Ubuntu, Debian, Mint, Pop!_OS, elementary OS", recommended: true,
+                desc: "Install with apt. Adds XDM to your app menu and replaces the old xdman package." }
+            - { id: 9-x64-rpm, icon: rpm, name: "xdm-app-{v}-1.x86_64.rpm", size: "62 MB", kind: Fedora / openSUSE package (.rpm), distros: "Fedora, RHEL, Rocky, AlmaLinux, openSUSE",
+                desc: "Install with dnf or zypper. Adds XDM to your app menu and replaces the old xdman_gtk package." }
+            - { id: 9-x64-arch, icon: arch, name: "xdm-app-{v}-1-x86_64.pkg.tar.zst", size: "59 MB", kind: Arch package (.pkg.tar.zst), distros: "Arch, Manjaro, EndeavourOS, CachyOS",
+                desc: "Install with pacman -U. Adds XDM to your app menu." }
+            - { id: 9-x64-tgz, icon: tgz, name: "xdm-app-{v}-linux-x64.tar.gz", size: "61 MB", kind: Portable archive (.tar.gz), distros: "Any distribution",
+                desc: "No installation: unpack anywhere and run bin/xdm-app. No menu entry and no xdm-app:// link handler." }
         - arch: arm64
           label: ARM64 (aarch64)
           hint: ARM laptops, Raspberry Pi 5, ARM servers
           files:
-            - { id: 9-arm64-deb, name: "xdm-app_{v}_arm64.deb", kind: .deb package, distros: "Ubuntu, Debian, Raspberry Pi OS", recommended: true }
-            - { id: 9-arm64-rpm, name: "xdm-app-{v}-1.aarch64.rpm", kind: .rpm package, distros: "Fedora, openSUSE" }
-            - { id: 9-arm64-tgz, name: "xdm-app-{v}-linux-arm64.tar.gz", kind: tar.gz archive, distros: "Any distribution" }
+            - { id: 9-arm64-deb, icon: deb, name: "xdm-app_{v}_arm64.deb", size: "61 MB", kind: Debian / Ubuntu package (.deb), distros: "Ubuntu, Debian, Raspberry Pi OS (64-bit)", recommended: true,
+                desc: "Install with apt. Adds XDM to your app menu and replaces the old xdman package." }
+            - { id: 9-arm64-rpm, icon: rpm, name: "xdm-app-{v}-1.aarch64.rpm", size: "61 MB", kind: Fedora / openSUSE package (.rpm), distros: "Fedora, RHEL, openSUSE",
+                desc: "Install with dnf or zypper. Adds XDM to your app menu." }
+            - { id: 9-arm64-arch, icon: arch, name: "xdm-app-{v}-1-aarch64.pkg.tar.zst", size: "58 MB", kind: Arch package (.pkg.tar.zst), distros: "Arch Linux ARM, Manjaro ARM",
+                desc: "Install with pacman -U. Adds XDM to your app menu." }
+            - { id: 9-arm64-tgz, icon: tgz, name: "xdm-app-{v}-linux-arm64.tar.gz", size: "60 MB", kind: Portable archive (.tar.gz), distros: "Any distribution",
+                desc: "No installation: unpack anywhere and run bin/xdm-app. No menu entry and no xdm-app:// link handler." }
 
   - key: xdm8
     name: XDM 8
@@ -66,17 +85,17 @@ releases:
           label: 64-bit (x64)
           hint: Windows 10 and 11
           files:
-            - { id: 8-x64-msi, name: "xdmsetup-{v}.msi", kind: MSI installer, recommended: true }
-            - { id: 8-store, kind: Microsoft Store, store_url: "https://apps.microsoft.com/detail/9n5jjzw4qzbr", distros: "Installs and updates through the Microsoft Store" }
-            - { id: 8-x64-msi-win7, name: "xdmsetup-{v}-win7.msi", kind: MSI installer for Windows 7 }
+            - { id: 8-x64-msi, icon: msi, size: "17 MB", desc: "The standard XDM 8 installer for Windows 8, 10 and 11.", name: "xdmsetup-{v}.msi", kind: MSI installer, recommended: true }
+            - { id: 8-store, icon: store, kind: Microsoft Store, store_url: "https://apps.microsoft.com/detail/9n5jjzw4qzbr", distros: "Installs and updates through the Microsoft Store" }
+            - { id: 8-x64-msi-win7, icon: msi, size: "17 MB", desc: "For Windows 7 and XP. Needs .NET Framework 4.5 or later. Unsupported, no further updates.", name: "xdmsetup-{v}-win7.msi", kind: MSI installer for Windows 7 }
       linux:
         - arch: x64
           label: x86-64 (amd64)
           hint: Most desktops and laptops
           files:
-            - { id: 8-x64-deb, name: "xdman_gtk_{v}_amd64.deb", kind: .deb package, distros: "Ubuntu, Debian, Mint", recommended: true }
-            - { id: 8-x64-rpm, name: "xdman_gtk-{v}-1.fc36.x86_64.rpm", kind: .rpm package, distros: "Fedora, openSUSE" }
-            - { id: 8-x64-arch, name: "xdman_gtk-{v}-1-x86_64.pkg.tar.zst", kind: Arch package, distros: "Arch, Manjaro" }
+            - { id: 8-x64-deb, icon: deb, size: "10 MB", name: "xdman_gtk_{v}_amd64.deb", kind: .deb package, distros: "Ubuntu, Debian, Mint", recommended: true }
+            - { id: 8-x64-rpm, icon: rpm, size: "10 MB", name: "xdman_gtk-{v}-1.fc36.x86_64.rpm", kind: .rpm package, distros: "Fedora, openSUSE" }
+            - { id: 8-x64-arch, icon: arch, size: "14 MB", name: "xdman_gtk-{v}-1-x86_64.pkg.tar.zst", kind: Arch package, distros: "Arch, Manjaro" }
 
 os:
   windows: { name: Windows, requirements: "Windows 10 or 11. Java is bundled." }

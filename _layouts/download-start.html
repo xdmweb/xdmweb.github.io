@@ -4,16 +4,18 @@ body_class: page-download-start
 ---
 {%- assign R = site.data.releases -%}
 {%- assign osd = R.os[page.os] -%}
-{%- comment -%} Only files of available releases can be started; ids not in this map show the fallback. {%- endcomment -%}
+{%- comment -%} Only files of downloadable releases (pre-release or available) can be started; ids not in this map show the fallback. {%- endcomment -%}
 <script type="application/json" id="dl-files">{
 {%- assign first = true -%}
-{%- for rel in R.releases -%}{%- if rel.status == "available" -%}
+{%- for rel in R.releases -%}{%- unless rel.status == "coming-soon" -%}
+  {%- assign v = rel.version | default: rel.tag -%}
+  {%- assign rlabel = rel.display | default: rel.tag -%}
   {%- for ra in rel.platforms[page.os] -%}{%- for f in ra.files -%}{%- if f.name -%}
-    {%- assign fname = f.name | replace: "{v}", rel.tag -%}
+    {%- assign fname = f.name | replace: "{v}", v -%}
     {%- unless first %},{% endunless %}{% assign first = false %}
-  {{ f.id | jsonify }}: {"url": {{ R.base_url | append: rel.tag | append: "/" | append: fname | jsonify }}, "name": {{ fname | jsonify }}, "release": {{ "XDM " | append: rel.tag | jsonify }}, "arch": {{ ra.label | jsonify }}, "kind": {{ f.kind | jsonify }}}
+  {{ f.id | jsonify }}: {"url": {{ R.base_url | append: rel.tag | append: "/" | append: fname | jsonify }}, "name": {{ fname | jsonify }}, "release": {{ "XDM " | append: rlabel | jsonify }}, "arch": {{ ra.label | jsonify }}, "kind": {{ f.kind | jsonify }}}
   {%- endif -%}{%- endfor -%}{%- endfor -%}
-{%- endif -%}{%- endfor %}
+{%- endunless -%}{%- endfor %}
 }</script>
 
 <div class="page-hero page-hero--center start-hero">

@@ -701,3 +701,40 @@ code, kbd { font-family: var(--mono); font-size: .86em; }
 @media (prefers-reduced-motion: reduce) { .meter-fill { stroke-dashoffset: 290; } }
 .stat { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
 .stat span { display: block; line-height: 1.4; }
+
+/* ---------- Download rows: file-type badges, descriptions, pre-release ---------- */
+.tag--warn { background: color-mix(in srgb, var(--warn) 16%, transparent); color: var(--warn); }
+.rel-block--pre-release { border-color: color-mix(in srgb, var(--warn) 45%, var(--border));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--warn) 5%, var(--surface)), var(--surface) 140px); }
+.rel-note { margin: -4px 0 12px !important; padding: 10px 12px; border-radius: 10px; font-size: .88rem !important;
+  background: color-mix(in srgb, var(--warn) 9%, var(--surface)); color: var(--text-2) !important; }
+.file-row { justify-content: flex-start; }
+.file-row > .btn { margin-left: auto; flex-shrink: 0; }
+.file-info { flex: 1; gap: 2px; }
+.file-desc { font-size: .9rem; color: var(--text-2); line-height: 1.45; }
+.file-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-top: 2px; }
+.file-size { font-size: .78rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.file-size::before { content: "·"; margin-right: 10px; }
+.file-icon { flex-shrink: 0; display: block; width: 40px; height: 48px; align-self: flex-start; margin-top: 2px; --fi: var(--brand); }
+.file-icon svg { display: block; width: 40px; height: 48px; overflow: visible; }
+.fi-page { fill: var(--surface); stroke: color-mix(in srgb, var(--fi) 45%, var(--border)); stroke-width: 1.4; }
+.fi-fold { stroke: color-mix(in srgb, var(--fi) 45%, var(--border)); stroke-width: 1.4; stroke-linejoin: round; }
+.fi-glyph { fill: var(--fi); }
+.fi-glyph-stroke { stroke: var(--fi); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.fi-stroke { stroke: var(--fi); }
+.fi-band { fill: var(--fi); }
+.fi-label { fill: #fff; font: 800 8.6px/1 var(--font, system-ui, sans-serif); letter-spacing: .06em; }
+.file-icon--msi { --fi: #0a74d9; }
+.file-icon--store { --fi: #2563eb; }
+.file-icon--dmg { --fi: #55606f; }
+.file-icon--deb { --fi: #d70a53; }
+.file-icon--rpm { --fi: #3c6eb4; }
+.file-icon--arch { --fi: #1793d1; }
+.file-icon--tgz { --fi: #c27a0e; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .file-icon--dmg { --fi: #9aa4b4; } }
+:root[data-theme="dark"] .file-icon--dmg { --fi: #9aa4b4; }
+@media (max-width: 560px) {
+  .file-row { flex-wrap: wrap; }
+  .file-info { flex-basis: calc(100% - 56px); }
+  .file-row > .btn { margin-left: 56px; }
+}
