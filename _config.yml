@@ -21,6 +21,8 @@ next_version: "9"
 github_url: https://github.com/subhra74/xdm
 forum_url: https://github.com/subhra74/xdm/discussions
 issues_url: https://github.com/subhra74/xdm/issues
+# SignPath Foundation requires a "Code signing policy" link on the home and download pages.
+code_signing_policy_url: https://github.com/subhra74/xdm/blob/master/CODE_SIGNING_POLICY.md
 # Extension store links live in _data/extension_stores.yml.
 # redirect.html and xdm-firefox/ are legacy XDM 7 redirects; leave them alone.
 
