@@ -13,10 +13,11 @@ body_class: page-download-start
   {%- for ra in rel.platforms[page.os] -%}{%- for f in ra.files -%}{%- if f.name -%}
     {%- assign fname = f.name | replace: "{v}", v -%}
     {%- unless first %},{% endunless %}{% assign first = false %}
-  {{ f.id | jsonify }}: {"url": {{ R.base_url | append: rel.tag | append: "/" | append: fname | jsonify }}, "name": {{ fname | jsonify }}, "release": {{ "XDM " | append: rlabel | jsonify }}, "arch": {{ ra.label | jsonify }}, "kind": {{ f.kind | jsonify }}}
+  {{ f.id | jsonify }}: {"url": {{ R.base_url | append: rel.tag | append: "/" | append: fname | jsonify }}, "name": {{ fname | jsonify }}, "release": {{ "XDM " | append: rlabel | jsonify }}, "arch": {{ ra.label | jsonify }}, "kind": {{ f.kind | jsonify }}, "rel": {{ rel.key | jsonify }}}
   {%- endif -%}{%- endfor -%}{%- endfor -%}
 {%- endunless -%}{%- endfor %}
 }</script>
+{% include release-track.html %}
 
 <div class="page-hero page-hero--center start-hero">
   <div class="container">
