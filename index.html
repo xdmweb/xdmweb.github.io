@@ -244,7 +244,7 @@ body_class: page-home
     <div class="dl-home reveal">
       <div class="card dl-home-main">
         <span class="card-kicker">Recommended <span class="tag tag--warn">Pre-release</span></span>
-        <h3>XDM 9 <span class="rel-version">{{ x9.display }}</span></h3>
+        <h3>XDM 9 <span class="rel-version"{% if x9.track %} data-rel-display="{{ x9.key }}"{% endif %}>{{ x9.display }}</span></h3>
         <p>{{ x9.summary }}</p>
         <ul class="dl-home-points">
           <li>Native on Windows x64 &amp; ARM64, Mac Apple silicon &amp; Intel, Linux x86-64 &amp; ARM64</li>
@@ -327,3 +327,5 @@ body_class: page-home
     </div>
   </div>
 </section>
+
+{% include release-track.html %}

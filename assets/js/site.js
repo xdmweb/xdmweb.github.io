@@ -212,6 +212,82 @@
     }
   });
 
+  // Live release info: for releases with `track` in _data/releases.yml, find the newest GitHub release whose tag starts
+  // with that prefix and, when it has every listed file, use its version, links and sizes. Without it (no JS, API
+  // down, rate limit of 60 requests/hour per IP) the page keeps what Jekyll rendered. Resolves to {key: info} or {}.
+  var liveReleases = (function () {
+    var cfgEl = document.getElementById("rel-track");
+    if (!cfgEl || !window.fetch) return Promise.resolve({});
+    var cfg;
+    try { cfg = JSON.parse(cfgEl.textContent); } catch (e) { return Promise.resolve({}); }
+    if (!cfg.releases || !cfg.releases.length) return Promise.resolve({});
+
+    var CACHE_KEY = "xdm-gh-releases", TTL = 30 * 60 * 1000;
+    var fromCache = function () {
+      try {
+        var c = JSON.parse(localStorage.getItem(CACHE_KEY));
+        if (c && Date.now() - c.t < TTL) return c.list;
+      } catch (e) {}
+      return null;
+    };
+    var cached = fromCache();
+    var list = cached ? Promise.resolve(cached) :
+      fetch("https://api.github.com/repos/" + cfg.repo + "/releases?per_page=30", { headers: { Accept: "application/vnd.github+json" } })
+        .then(function (r) { if (!r.ok) throw new Error("GitHub API " + r.status); return r.json(); })
+        .then(function (all) {
+          // Keep only what the page needs, so the cache stays small.
+          var slim = all.filter(function (r) { return !r.draft; }).map(function (r) {
+            var assets = {};
+            (r.assets || []).forEach(function (a) { assets[a.name] = { url: a.browser_download_url, size: a.size }; });
+            return { tag: r.tag_name, assets: assets };
+          });
+          try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), list: slim })); } catch (e) {}
+          return slim;
+        });
+
+    return list.then(function (all) {
+      var out = {};
+      cfg.releases.forEach(function (tr) {
+        // The API lists newest first.
+        var gh = all.filter(function (r) { return r.tag.indexOf(tr.prefix) === 0; })[0];
+        if (!gh) return;
+        // "v9.0.2-pre.7" -> version "9.0.2", display "9.0.2 pre-release 7"; other suffixes are shown as they are.
+        var m = /^v?([0-9][0-9.]*)(?:-(.+))?$/.exec(gh.tag);
+        if (!m) return;
+        var version = m[1], pre = m[2] && /^pre\.?(\d+)$/.exec(m[2]);
+        var display = !m[2] ? version : pre ? version + " pre-release " + pre[1] : version + " " + m[2];
+        var files = {}, complete = true;
+        Object.keys(tr.files).forEach(function (fid) {
+          var name = tr.files[fid].split("{v}").join(version);
+          var a = gh.assets[name];
+          if (!a) { complete = false; return; }
+          files[fid] = { name: name, url: a.url || cfg.base_url + gh.tag + "/" + name, size: Math.round(a.size / 1048576) + " MB" };
+        });
+        // A release still uploading (or with renamed files) is ignored rather than shown half-updated.
+        if (complete) out[tr.key] = { tag: gh.tag, version: version, display: display, label: "XDM " + display, files: files };
+      });
+      return out;
+    }).catch(function () { return {}; });
+  })();
+
+  liveReleases.then(function (live) {
+    Object.keys(live).forEach(function (key) {
+      var rel = live[key];
+      document.querySelectorAll('[data-rel-display="' + key + '"]').forEach(function (el) { el.textContent = rel.display; });
+      document.querySelectorAll('[data-rel-notes="' + key + '"]').forEach(function (a) {
+        a.href = a.href.replace(/\/releases\/tag\/.*$/, "/releases/tag/" + encodeURIComponent(rel.tag));
+      });
+    });
+    document.querySelectorAll("[data-rel-file]").forEach(function (row) {
+      var fid = row.getAttribute("data-rel-file"), f = null;
+      Object.keys(live).forEach(function (key) { if (live[key].files[fid]) f = live[key].files[fid]; });
+      if (!f) return;
+      var name = row.querySelector(".file-name"), size = row.querySelector(".file-size");
+      if (name) name.textContent = f.name;
+      if (size) size.textContent = f.size;
+    });
+  });
+
   // "Download is starting" page: start the chosen file, then offer a direct link as fallback.
   var files = document.getElementById("dl-files");
   if (files) {
@@ -220,22 +296,31 @@
     var id = new URLSearchParams(location.search).get("f");
     var file = id && Object.prototype.hasOwnProperty.call(map, id) ? map[id] : null;
     var status = document.querySelector("[data-dl-status]");
+    var os = location.pathname.split("/")[2];
     if (!file) {
       document.querySelector("[data-dl-title]").textContent = "Choose a file to download";
       document.querySelector("[data-dl-detail]").textContent = "";
       document.querySelector("[data-dl-missing]").hidden = false;
       status.classList.add("is-done");
     } else {
-      document.querySelector("[data-dl-detail]").textContent = file.release + " · " + file.arch + " · " + file.name;
-      var link = document.querySelector("[data-dl-link]");
-      link.href = file.url;
-      setTimeout(function () {
-        window.location.href = file.url;
-        document.querySelector("[data-dl-title]").textContent = "Your download has started";
-        document.querySelector("[data-dl-fallback]").hidden = false;
-        status.classList.add("is-done");
-        if (typeof gtag === "function") gtag("event", "file_download", { file_name: file.name, link_url: file.url });
-      }, 800);
+      var start = function (live) {
+        var rel = file.rel && live[file.rel], f = rel && rel.files[os + "/" + id];
+        if (f) { file.url = f.url; file.name = f.name; file.release = rel.label; }
+        document.querySelector("[data-dl-detail]").textContent = file.release + " · " + file.arch + " · " + file.name;
+        document.querySelector("[data-dl-link]").href = file.url;
+        setTimeout(function () {
+          window.location.href = file.url;
+          document.querySelector("[data-dl-title]").textContent = "Your download has started";
+          document.querySelector("[data-dl-fallback]").hidden = false;
+          status.classList.add("is-done");
+          if (typeof gtag === "function") gtag("event", "file_download", { file_name: file.name, link_url: file.url });
+        }, 800);
+      };
+      // Wait for the live release info, but never more than 2.5 s: then start the file Jekyll rendered.
+      var started = false;
+      var once = function (live) { if (!started) { started = true; start(live); } };
+      liveReleases.then(once);
+      setTimeout(function () { once({}); }, 2500);
     }
   }
 

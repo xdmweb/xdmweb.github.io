@@ -45,7 +45,7 @@ body_class: page-download-hub
           <li>Batch downloader, smarter link refresh, start <em>and</em> stop times in the scheduler</li>
         </ul>
         {%- if x9.status == "pre-release" %}
-        <p style="color:#aab0d6">Try XDM {{ x9.display }} now. It's a test build, so expect rough edges; XDM {{ site.current_version }}
+        <p style="color:#aab0d6">Try XDM <span{% if x9.track %} data-rel-display="{{ x9.key }}"{% endif %}>{{ x9.display }}</span> now. It's a test build, so expect rough edges; XDM {{ site.current_version }}
           stays the stable release for Windows and Linux.</p>
         <p class="hero-actions" style="display:flex;flex-wrap:wrap;gap:10px;margin:0">
           {%- for o in R.os %}<a class="btn btn-primary btn-sm" href="/download/{{ o[0] }}/">XDM 9 for {{ o[1].name }}</a>{% endfor %}
@@ -131,3 +131,5 @@ body_class: page-download-hub
     <p>In the <a href="/download/archive/">version archive</a>. Older versions are unsupported and may not work with current browsers.</p>
   </article>
 </div>
+
+{% include release-track.html %}

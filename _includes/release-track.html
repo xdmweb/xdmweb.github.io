@@ -1,0 +1,13 @@
+{%- comment -%} Tracked releases for the live update in site.js: the static tag plus each file's name pattern, keyed "<os>/<id>". {%- endcomment -%}
+{%- assign R = site.data.releases -%}
+<script type="application/json" id="rel-track">{"repo": "subhra74/xdm", "base_url": {{ R.base_url | jsonify }}, "releases": [
+{%- assign first_rel = true -%}
+{%- for rel in R.releases -%}{%- if rel.track -%}
+  {%- unless first_rel %},{% endunless %}{% assign first_rel = false %}
+  {"key": {{ rel.key | jsonify }}, "prefix": {{ rel.track | jsonify }}, "tag": {{ rel.tag | jsonify }}, "files": {
+  {%- assign first_file = true -%}
+  {%- for o in rel.platforms -%}{%- for ra in o[1] -%}{%- for f in ra.files -%}{%- if f.name -%}
+    {%- unless first_file %},{% endunless %}{% assign first_file = false %}
+    {{ o[0] | append: "/" | append: f.id | jsonify }}: {{ f.name | jsonify }}
+  {%- endif -%}{%- endfor -%}{%- endfor -%}{%- endfor %}}}
+{%- endif -%}{%- endfor %}]}</script>
