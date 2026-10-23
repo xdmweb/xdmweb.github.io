@@ -21,8 +21,8 @@ Open an issue on the **[GitHub issue tracker](https://github.com/subhra74/xdm/is
 
 ## Other enquiries
 
-For press, partnerships, privacy questions or anything else, reach out via
-[X / Twitter (@XDM_subhra74)](https://twitter.com/XDM_subhra74) or open a discussion on GitHub.
+For press, partnerships, privacy questions or anything else, email **[xdm.dev@proton.me](mailto:xdm.dev@proton.me)**. You can also reach
+us on [X / Twitter (@XDM_subhra74)](https://twitter.com/XDM_subhra74) or open a discussion on GitHub.
 
 <div class="callout callout--warn">
 <p class="callout-title">Beware of impostors</p>

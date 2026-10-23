@@ -19,7 +19,7 @@ single stream rarely uses your full bandwidth. XDM opens **several connections t
 fetching a different segment. When a segment finishes early, XDM splits the largest remaining piece and
 puts the free connection to work on it, so all connections stay busy until the very end.
 
-That's why XDM can be up to 5× faster on servers that throttle per connection. On servers that don't, it
+That's why XDM is faster on servers that throttle per connection. On servers that don't, it
 still uses your full bandwidth and resumes after interruptions.
 
 ## Settings that matter

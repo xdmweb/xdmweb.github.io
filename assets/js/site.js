@@ -390,7 +390,7 @@
     document.querySelector(".hero").addEventListener("pointerleave", function () { heroShot.style.transform = ""; });
   }
 
-  // Count-up for the stats row ("5×", "3", "6+", "100%").
+  // Count-up for the numeric stats in the stats row ("3", "6+", "100%").
   var stats = document.querySelectorAll(".stat strong");
   if (stats.length && "IntersectionObserver" in window) {
     var so = new IntersectionObserver(function (entries) {
