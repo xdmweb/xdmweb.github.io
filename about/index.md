@@ -1,7 +1,7 @@
 ---
 layout: article-plain
 title: About Xtreme Download Manager
-description: "About Xtreme Download Manager (XDM): a free, open-source download manager and video downloader created and maintained by Subhra Das Gupta."
+description: "About Xtreme Download Manager (XDM): a free, open-source download manager and video downloader created and maintained by Team XDM."
 lead: "A free, open-source download manager, built in the open."
 ---
 
@@ -11,9 +11,11 @@ video and integrates with every major browser.
 
 ## Who makes XDM
 
-XDM is created and maintained by **Subhra Das Gupta** ([@subhra74](https://github.com/subhra74)), with help from
+XDM is created and maintained by **Team XDM**, with help from
 contributors and translators around the world. The full source code is on
 [GitHub](https://github.com/subhra74/xdm) under the GNU General Public License.
+
+This website is operated by Team XDM. You can reach us at [xdm.dev@proton.me](mailto:xdm.dev@proton.me).
 
 ## Our principles
 
