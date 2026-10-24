@@ -313,7 +313,6 @@
           document.querySelector("[data-dl-title]").textContent = "Your download has started";
           document.querySelector("[data-dl-fallback]").hidden = false;
           status.classList.add("is-done");
-          if (typeof gtag === "function") gtag("event", "file_download", { file_name: file.name, link_url: file.url });
         }, 800);
       };
       // Wait for the live release info, but never more than 2.5 s: then start the file Jekyll rendered.
@@ -344,7 +343,6 @@
     var next = document.querySelector("[data-ext-next]");
     if (store && next) {
       store.addEventListener("click", function () {
-        if (typeof gtag === "function") gtag("event", "extension_store_click", { browser: want });
         setTimeout(function () {
           next.classList.add("is-highlighted");
           next.scrollIntoView({ behavior: "smooth", block: "start" });

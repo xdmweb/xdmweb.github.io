@@ -7,12 +7,9 @@ url: https://xtremedownloadmanager.com
 baseurl: ""
 lang: en
 
-# Google AdSense (Auto ads only: Google places every ad) and Analytics. Change the client id here if the AdSense account changes,
+# Google AdSense (Auto ads only: Google places every ad). Change the client id here if the AdSense account changes,
 # and update ads.txt to match.
 adsense_client: ca-pub-5694541550482111
-ga_ids:
-  - G-KWNQZP27ZE
-  - G-LPEMF0VGC2
 
 # Release info used in text. Download tables come from _data/releases.yml.
 current_version: 8.0.29

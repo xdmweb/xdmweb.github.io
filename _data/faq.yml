@@ -53,7 +53,7 @@
   a: In your Downloads folder, sorted into category folders by file type (Video, Music, Programs and so on). Change folders and categories in Settings → Folders. See [folders and categories](/guide/categories-and-folders/).
   cat: Downloads
 - q: Does XDM collect my data?
-  a: No. The XDM app and extension don't collect or send your data to the developer. The extension only talks to the XDM app running on your own computer. This website uses Google Analytics and Google AdSense. See the [privacy policy](/privacy.html).
+  a: No. The XDM app and extension don't collect or send your data to the developer. The extension only talks to the XDM app running on your own computer. This website uses Google AdSense. See the [privacy policy](/privacy.html).
   cat: Privacy
 - q: Where are XDM's settings and download list stored?
   a: In the hidden .xdm-app folder in your home folder (~/.xdm-app on macOS and Linux, %USERPROFILE%\.xdm-app on Windows).
