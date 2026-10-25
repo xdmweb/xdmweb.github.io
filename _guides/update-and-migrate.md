@@ -21,11 +21,12 @@ keeps your settings and download list.
 
 XDM doesn't update itself silently, and it never installs anything without you running the installer.
 
-## XDM 9 pre-release
+## XDM 9
 
 XDM 9 is a rebuilt version with a modern interface, native macOS support, faster video downloads with
-built-in merging, a batch downloader and a refreshed browser extension. It's available now as a
-[pre-release](/download/) for testing; {{ site.current_version }} stays the stable version until XDM 9 is final.
+built-in merging, a batch downloader and a refreshed browser extension. XDM {{ site.current_version }} is the current
+stable release; [download it here](/download/). When a newer test build is out, the download pages list it as a
+pre-release below the stable version.
 
 ## Moving from XDM 8 to XDM 9
 

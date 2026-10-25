@@ -2,7 +2,7 @@
   a: Yes. XDM is completely free and open-source software, licensed under the GPL. There's no paid version, no trial and no bundled adware. The source code is on [GitHub](https://github.com/subhra74/xdm).
   cat: General
 - q: Which operating systems does XDM support?
-  a: XDM runs on Windows and Linux. XDM 9, now in pre-release, adds a native macOS app for Apple silicon and Intel Macs, plus native builds for Windows on ARM and ARM64 Linux. See the [download page](/download/).
+  a: XDM runs on Windows, macOS and Linux. XDM 9 adds a native macOS app for Apple silicon and Intel Macs, plus native builds for Windows on ARM and ARM64 Linux. See the [download page](/download/).
   cat: General
 - q: Do I need to install Java?
   a: No. The installers include everything XDM needs, including its own Java runtime.

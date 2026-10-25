@@ -12,8 +12,8 @@ lang: en
 adsense_client: ca-pub-5694541550482111
 
 # Release info used in text. Download tables come from _data/releases.yml.
-current_version: 8.0.29
-current_release_url: https://github.com/subhra74/xdm/releases/tag/8.0.29
+current_version: 9.0.8
+current_release_url: https://github.com/subhra74/xdm/releases/tag/9.0.8
 next_version: "9"
 github_url: https://github.com/subhra74/xdm
 forum_url: https://github.com/subhra74/xdm/discussions

@@ -19,7 +19,7 @@ howto:
 
 <div class="callout callout--note">
 <p class="callout-title">macOS support is new in XDM 9</p>
-<p>The native Mac app is available as the <a href="/download/macos/">XDM 9 pre-release</a>. Older 7.x builds for
+<p>The native Mac app is part of <a href="/download/macos/">XDM 9</a>. Older 7.x builds for
 macOS are outdated and not recommended.</p>
 </div>
 

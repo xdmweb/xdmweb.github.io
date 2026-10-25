@@ -212,8 +212,9 @@
     }
   });
 
-  // Live release info: for releases with `track` in _data/releases.yml, find the newest GitHub release whose tag starts
-  // with that prefix and, when it has every listed file, use its version, links and sizes. Without it (no JS, API
+  // Live release info: for releases with `track` in _data/releases.yml, find the newest GitHub release of that version
+  // prefix and channel (stable or pre) and, when it has every listed file, use its version, links and sizes. Pre-release
+  // blocks start hidden and are shown only when a pre-release newer than the stable one exists. Without it (no JS, API
   // down, rate limit of 60 requests/hour per IP) the page keeps what Jekyll rendered. Resolves to {key: info} or {}.
   var liveReleases = (function () {
     var cfgEl = document.getElementById("rel-track");
@@ -245,17 +246,42 @@
           return slim;
         });
 
+    // "9.0.8" -> {version "9.0.8", pre null}; "v9.0.9-pre.24" -> {version "9.0.9", pre 24}. Other tags are skipped.
+    var parseTag = function (tag) {
+      var m = /^v?([0-9]+(?:\.[0-9]+)*)(?:-pre\.?([0-9]+))?$/.exec(tag);
+      return m && { tag: tag, version: m[1], pre: m[2] ? parseInt(m[2], 10) : null };
+    };
+    // Compares versions part by part; a pre-release sorts before the final release of the same version.
+    var cmp = function (a, b) {
+      var x = a.version.split("."), y = b.version.split(".");
+      for (var i = 0; i < Math.max(x.length, y.length); i++) {
+        var d = (parseInt(x[i], 10) || 0) - (parseInt(y[i], 10) || 0);
+        if (d) return d;
+      }
+      if (a.pre === b.pre) return 0;
+      return a.pre === null ? 1 : b.pre === null ? -1 : a.pre - b.pre;
+    };
+
     return list.then(function (all) {
       var out = {};
       cfg.releases.forEach(function (tr) {
-        // The API lists newest first.
-        var gh = all.filter(function (r) { return r.tag.indexOf(tr.prefix) === 0; })[0];
-        if (!gh) return;
-        // "v9.0.2-pre.7" -> version "9.0.2", display "9.0.2 pre-release 7"; other suffixes are shown as they are.
-        var m = /^v?([0-9][0-9.]*)(?:-(.+))?$/.exec(gh.tag);
-        if (!m) return;
-        var version = m[1], pre = m[2] && /^pre\.?(\d+)$/.exec(m[2]);
-        var display = !m[2] ? version : pre ? version + " pre-release " + pre[1] : version + " " + m[2];
+        // Stable and pre-release are told apart by the tag ("-pre.N"), not GitHub's pre-release flag, which isn't always set.
+        var tags = all.map(function (r) { return parseTag(r.tag); }).filter(function (t) {
+          return t && t.version.indexOf(tr.prefix) === 0;
+        });
+        var newest = function (pre) {
+          return tags.filter(function (t) { return (t.pre !== null) === pre; }).sort(cmp).pop();
+        };
+        var t = newest(tr.channel === "pre");
+        if (!t) return;
+        // A pre-release is shown only while it's ahead of the newest stable release.
+        if (tr.channel === "pre") {
+          var stable = newest(false);
+          if (stable && cmp(t, stable) <= 0) return;
+        }
+        var gh = all.filter(function (r) { return r.tag === t.tag; })[0];
+        var version = t.version;
+        var display = t.pre === null ? version : version + " pre-release " + t.pre;
         var files = {}, complete = true;
         Object.keys(tr.files).forEach(function (fid) {
           var name = tr.files[fid].split("{v}").join(version);
@@ -274,6 +300,7 @@
     Object.keys(live).forEach(function (key) {
       var rel = live[key];
       document.querySelectorAll('[data-rel-display="' + key + '"]').forEach(function (el) { el.textContent = rel.display; });
+      document.querySelectorAll('[data-rel-block="' + key + '"]').forEach(function (el) { el.hidden = false; });
       document.querySelectorAll('[data-rel-notes="' + key + '"]').forEach(function (a) {
         a.href = a.href.replace(/\/releases\/tag\/.*$/, "/releases/tag/" + encodeURIComponent(rel.tag));
       });
