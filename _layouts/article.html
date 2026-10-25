@@ -104,3 +104,7 @@ body_class: page-article
     </div>
   </div>
 </section>
+
+{%- if page.section == "help" or page.section == "errors" %}
+{% include help-fab.html %}
+{%- endif %}
