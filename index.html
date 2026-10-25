@@ -8,7 +8,7 @@ body_class: page-home
 <section class="hero">
   <div class="hero-grid-bg" aria-hidden="true"></div>
   <div class="container hero-inner">
-    <a class="pill" href="/download/#xdm9"><b>New</b> XDM 9 pre-release is out: rebuilt, faster, native on Mac →</a>
+    <a class="pill" href="/download/#xdm9"><b>New</b> XDM 9 is out: rebuilt, faster, native on Mac →</a>
     <h1>Download faster.<br><span class="grad-text">Resume anything.</span> Save videos.</h1>
     <p class="lead">Xtreme Download Manager speeds up downloads, picks up broken transfers where they
       stopped, and saves streaming video from your browser. Free and open source.</p>
@@ -240,10 +240,11 @@ body_class: page-home
       <p>Free for everyone, forever. No sign-up, no adware, no bundled software.</p>
     </div>
     {%- assign R = site.data.releases -%}
-    {%- assign x9 = R.releases[0] %}
+    {%- assign x9 = R.releases | where: "key", "xdm9" | first %}
+    {%- assign x8 = R.releases | where: "key", "xdm8" | first %}
     <div class="dl-home reveal">
       <div class="card dl-home-main">
-        <span class="card-kicker">Recommended <span class="tag tag--warn">Pre-release</span></span>
+        <span class="card-kicker">Recommended <span class="tag tag--ok">Stable</span></span>
         <h3>XDM 9 <span class="rel-version"{% if x9.track %} data-rel-display="{{ x9.key }}"{% endif %}>{{ x9.display }}</span></h3>
         <p>{{ x9.summary }}</p>
         <ul class="dl-home-points">
@@ -263,14 +264,14 @@ body_class: page-home
           </a>
           {%- endfor %}
         </div>
-        <p class="dl-home-note">A test build: expect rough edges, and <a href="{{ site.issues_url }}" rel="noopener">tell us</a> what breaks. It replaces XDM 8 when installed.</p>
+        <p class="dl-home-note">It replaces XDM 8 when installed. Found a problem? <a href="{{ site.issues_url }}" rel="noopener">Tell us</a>.</p>
       </div>
       <div class="card dl-home-side">
-        <span class="card-kicker">Stable <span class="tag tag--ok">Older</span></span>
-        <h3>XDM {{ site.current_version }}</h3>
-        <p>The previous generation, for Windows and Linux (x64 only). Pick it if you'd rather wait for the final XDM 9.</p>
+        <span class="card-kicker">Previous version <span class="tag">Older</span></span>
+        <h3>XDM {{ x8.tag }}</h3>
+        <p>The previous generation, for Windows and Linux (x64 only). Pick it if you need to stay on XDM 8 for now.</p>
         <p style="margin-top:18px"><a class="btn btn-ghost" href="/download/windows/">Windows</a> <a class="btn btn-ghost" href="/download/linux/">Linux</a></p>
-        <p class="dl-home-note">On the download pages, XDM {{ site.current_version }} is listed below XDM 9.</p>
+        <p class="dl-home-note">On the download pages, XDM {{ x8.tag }} is listed below XDM 9.</p>
       </div>
     </div>
   </div>

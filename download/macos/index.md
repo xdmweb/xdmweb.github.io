@@ -3,8 +3,8 @@ layout: download-os
 os: macos
 title: Download XDM for Mac
 seo_title: "Download Xtreme Download Manager for Mac (Apple silicon & Intel)"
-description: "Download Xtreme Download Manager for macOS: native DMGs for Apple silicon (M1–M4) and Intel Macs in the XDM 9 pre-release. Install steps and Gatekeeper help."
-lead: "A native Mac app for Apple silicon and Intel, available now as the XDM 9 pre-release. Pick your Mac below; we've pre-selected the one you appear to use."
+description: "Download Xtreme Download Manager for macOS: native DMGs for Apple silicon (M1–M4) and Intel Macs in XDM 9. Install steps and Gatekeeper help."
+lead: "A native Mac app for Apple silicon and Intel, available now in XDM 9. Pick your Mac below; we've pre-selected the one you appear to use."
 unavailable_note:
   all: "There's no current XDM release for macOS. XDM 9 brings a native Mac app for Apple silicon and Intel. The last legacy Mac build (7.2.8, 2018) is in the version archive but isn't recommended on current macOS."
 ---

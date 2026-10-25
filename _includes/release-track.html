@@ -4,10 +4,10 @@
 {%- assign first_rel = true -%}
 {%- for rel in R.releases -%}{%- if rel.track -%}
   {%- unless first_rel %},{% endunless %}{% assign first_rel = false %}
-  {"key": {{ rel.key | jsonify }}, "prefix": {{ rel.track | jsonify }}, "tag": {{ rel.tag | jsonify }}, "files": {
+  {"key": {{ rel.key | jsonify }}, "prefix": {{ rel.track | jsonify }}, "channel": {{ rel.channel | default: "stable" | jsonify }}, "tag": {{ rel.tag | jsonify }}, "files": {
   {%- assign first_file = true -%}
   {%- for o in rel.platforms -%}{%- for ra in o[1] -%}{%- for f in ra.files -%}{%- if f.name -%}
     {%- unless first_file %},{% endunless %}{% assign first_file = false %}
-    {{ o[0] | append: "/" | append: f.id | jsonify }}: {{ f.name | jsonify }}
+    {{ o[0] | append: "/" | append: rel.id_prefix | append: f.id | jsonify }}: {{ f.name | jsonify }}
   {%- endif -%}{%- endfor -%}{%- endfor -%}{%- endfor %}}}
 {%- endif -%}{%- endfor %}]}</script>

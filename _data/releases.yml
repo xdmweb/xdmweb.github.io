@@ -8,25 +8,30 @@
 # Each file has an `id` that is unique per OS; the download links use it (/download/<os>/start/?f=<id>).
 # An entry with `store_url` instead of `name` is a store listing: its button links straight to the store.
 #
-# `track` (optional) is a tag prefix: in the browser, assets/js/site.js asks the GitHub API for the newest release whose tag
-# starts with it and, when that release has every file listed here, swaps in its version, links and sizes. The values in
-# this file stay as what the page shows without JavaScript or when the API can't be reached, so keep them reasonably current.
+# `track` (optional) is a version prefix and `channel` is stable (tags like "9.0.8") or pre (tags like "v9.0.9-pre.24"):
+# in the browser, assets/js/site.js asks the GitHub API for the newest release of that prefix and channel and, when that
+# release has every file listed here, swaps in its version, links and sizes. The values in this file stay as what the page
+# shows without JavaScript or when the API can't be reached, so keep them reasonably current.
+#
+# `live_only: true` renders the entry hidden; site.js shows it only when GitHub has a matching release. The pre channel
+# matches only while a pre-release is newer than the newest stable release. `id_prefix` keeps file ids unique when an
+# entry reuses another's platforms (YAML anchor).
 
 base_url: https://github.com/subhra74/xdm/releases/download/
 
 releases:
   - key: xdm9
     name: XDM 9
-    status: pre-release        # coming-soon | pre-release | available
-    tag: "v9.0.2-pre.7"        # GitHub release tag (download folder)
-    version: "9.0.2"           # {v} in file names; defaults to tag
-    display: "9.0.2 pre-release 7"
-    track: "v9."               # follow the newest v9.* release on GitHub (see above)
+    status: available          # coming-soon | pre-release | available
+    tag: "9.0.8"               # GitHub release tag (download folder)
+    version: "9.0.8"           # {v} in file names; defaults to tag
+    display: "9.0.8"
+    track: "9."                # follow the newest stable 9.x release on GitHub (see above)
+    channel: stable
     summary: Rebuilt from the ground up, with native builds for every major platform and processor.
     note: >-
-      This is a pre-release for testing. It works for everyday downloads, but expect rough edges. Please
-      report problems on GitHub. It replaces XDM 8 when installed.
-    platforms:
+      The current stable release. It replaces XDM 8 when installed.
+    platforms: &xdm9_platforms
       windows:
         - arch: x64
           label: 64-bit (x64)
@@ -45,13 +50,13 @@ releases:
           label: Apple silicon
           hint: M1, M2, M3, M4 and later
           files:
-            - { id: 9-arm64-dmg, icon: dmg, name: "xdm-app-{v}-arm64.dmg", size: "59 MB", kind: Disk image (DMG), recommended: true,
+            - { id: 9-arm64-dmg, icon: dmg, name: "xdm-app-{v}-arm64.dmg", size: "60 MB", kind: Disk image (DMG), recommended: true,
                 desc: "Open it and drag XDM into Applications. Runs natively on Apple silicon. macOS asks you to confirm the first launch." }
         - arch: x64
           label: Intel
           hint: Macs with an Intel processor
           files:
-            - { id: 9-x64-dmg, icon: dmg, name: "xdm-app-{v}-x64.dmg", size: "61 MB", kind: Disk image (DMG), recommended: true,
+            - { id: 9-x64-dmg, icon: dmg, name: "xdm-app-{v}-x64.dmg", size: "62 MB", kind: Disk image (DMG), recommended: true,
                 desc: "For Intel Macs. Open it and drag XDM into Applications. macOS asks you to confirm the first launch." }
       linux:
         - arch: x64
@@ -60,30 +65,47 @@ releases:
           files:
             - { id: 9-x64-deb, icon: deb, name: "xdm-app_{v}_amd64.deb", size: "62 MB", kind: Debian / Ubuntu package (.deb), distros: "Ubuntu, Debian, Mint, Pop!_OS, elementary OS", recommended: true,
                 desc: "Install with apt. Adds XDM to your app menu and replaces the old xdman package." }
-            - { id: 9-x64-rpm, icon: rpm, name: "xdm-app-{v}-1.x86_64.rpm", size: "62 MB", kind: Fedora / openSUSE package (.rpm), distros: "Fedora, RHEL, Rocky, AlmaLinux, openSUSE",
+            - { id: 9-x64-rpm, icon: rpm, name: "xdm-app-{v}-1.x86_64.rpm", size: "63 MB", kind: Fedora / openSUSE package (.rpm), distros: "Fedora, RHEL, Rocky, AlmaLinux, openSUSE",
                 desc: "Install with dnf or zypper. Adds XDM to your app menu and replaces the old xdman_gtk package." }
             - { id: 9-x64-arch, icon: arch, name: "xdm-app-{v}-1-x86_64.pkg.tar.zst", size: "60 MB", kind: Arch package (.pkg.tar.zst), distros: "Arch, Manjaro, EndeavourOS, CachyOS",
                 desc: "Install with pacman -U. Adds XDM to your app menu." }
-            - { id: 9-x64-tgz, icon: tgz, name: "xdm-app-{v}-linux-x64.tar.gz", size: "61 MB", kind: Portable archive (.tar.gz), distros: "Any distribution",
+            - { id: 9-x64-tgz, icon: tgz, name: "xdm-app-{v}-linux-x64.tar.gz", size: "62 MB", kind: Portable archive (.tar.gz), distros: "Any distribution",
                 desc: "No installation: unpack anywhere and run bin/xdm-app. No menu entry and no xdm-app:// link handler." }
         - arch: arm64
           label: ARM64 (aarch64)
           hint: ARM laptops, Raspberry Pi 5, ARM servers
           files:
-            - { id: 9-arm64-deb, icon: deb, name: "xdm-app_{v}_arm64.deb", size: "61 MB", kind: Debian / Ubuntu package (.deb), distros: "Ubuntu, Debian, Raspberry Pi OS (64-bit)", recommended: true,
+            - { id: 9-arm64-deb, icon: deb, name: "xdm-app_{v}_arm64.deb", size: "62 MB", kind: Debian / Ubuntu package (.deb), distros: "Ubuntu, Debian, Raspberry Pi OS (64-bit)", recommended: true,
                 desc: "Install with apt. Adds XDM to your app menu and replaces the old xdman package." }
-            - { id: 9-arm64-rpm, icon: rpm, name: "xdm-app-{v}-1.aarch64.rpm", size: "61 MB", kind: Fedora / openSUSE package (.rpm), distros: "Fedora, RHEL, openSUSE",
+            - { id: 9-arm64-rpm, icon: rpm, name: "xdm-app-{v}-1.aarch64.rpm", size: "62 MB", kind: Fedora / openSUSE package (.rpm), distros: "Fedora, RHEL, openSUSE",
                 desc: "Install with dnf or zypper. Adds XDM to your app menu." }
-            - { id: 9-arm64-arch, icon: arch, name: "xdm-app-{v}-1-aarch64.pkg.tar.zst", size: "59 MB", kind: Arch package (.pkg.tar.zst), distros: "Arch Linux ARM, Manjaro ARM",
+            - { id: 9-arm64-arch, icon: arch, name: "xdm-app-{v}-1-aarch64.pkg.tar.zst", size: "60 MB", kind: Arch package (.pkg.tar.zst), distros: "Arch Linux ARM, Manjaro ARM",
                 desc: "Install with pacman -U. Adds XDM to your app menu." }
             - { id: 9-arm64-tgz, icon: tgz, name: "xdm-app-{v}-linux-arm64.tar.gz", size: "61 MB", kind: Portable archive (.tar.gz), distros: "Any distribution",
                 desc: "No installation: unpack anywhere and run bin/xdm-app. No menu entry and no xdm-app:// link handler." }
 
+  - key: xdm9pre
+    name: XDM 9
+    status: pre-release
+    live_only: true            # hidden until GitHub has a pre-release newer than the stable release
+    tag: "v9.0.7-pre.23"
+    version: "9.0.7"
+    display: "9.0.7 pre-release 23"
+    track: "9."
+    channel: pre
+    id_prefix: "pre-"
+    summary: The next XDM 9 update, ahead of the stable release.
+    note: >-
+      This is a pre-release for testing. It works for everyday downloads, but expect rough edges. Please
+      report problems on GitHub.
+    platforms: *xdm9_platforms
+
   - key: xdm8
     name: XDM 8
     status: available
+    previous: true             # shown as the previous version
     tag: "8.0.29"
-    summary: The current stable release for Windows and Linux.
+    summary: The previous generation, for Windows and Linux (x64 only).
     platforms:
       windows:
         - arch: x64

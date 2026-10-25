@@ -35,8 +35,8 @@ body_class: page-download-hub
   <div class="container">
     <div class="soon-banner" id="xdm9">
       <div>
-        {%- assign x9 = R.releases[0] %}
-        <span class="soon-badge">{% if x9.status == "pre-release" %}Pre-release out now{% else %}Coming soon{% endif %}</span>
+        {%- assign x9 = R.releases | where: "key", "xdm9" | first %}
+        <span class="soon-badge">{% if x9.status == "available" %}Out now{% elsif x9.status == "pre-release" %}Pre-release out now{% else %}Coming soon{% endif %}</span>
         <h2>XDM 9: rebuilt from the ground up</h2>
         <ul>
           <li>Native builds for every processor: Windows x64 &amp; ARM64, Mac Apple silicon &amp; Intel, Linux x86-64 &amp; ARM64</li>
@@ -44,14 +44,18 @@ body_class: page-download-hub
           <li>Faster video downloads with built-in merging, with no extra components</li>
           <li>Batch downloader, smarter link refresh, start <em>and</em> stop times in the scheduler</li>
         </ul>
-        {%- if x9.status == "pre-release" %}
-        <p style="color:#aab0d6">Try XDM <span{% if x9.track %} data-rel-display="{{ x9.key }}"{% endif %}>{{ x9.display }}</span> now. It's a test build, so expect rough edges; XDM {{ site.current_version }}
-          stays the stable release for Windows and Linux.</p>
+        {%- if x9.status == "available" %}
+        <p style="color:#aab0d6">XDM <span{% if x9.track %} data-rel-display="{{ x9.key }}"{% endif %}>{{ x9.display }}</span> is the current stable release for Windows, macOS and Linux.</p>
+        <p class="hero-actions" style="display:flex;flex-wrap:wrap;gap:10px;margin:0">
+          {%- for o in R.os %}<a class="btn btn-primary btn-sm" href="/download/{{ o[0] }}/">XDM 9 for {{ o[1].name }}</a>{% endfor %}
+        </p>
+        {%- elsif x9.status == "pre-release" %}
+        <p style="color:#aab0d6">Try XDM <span{% if x9.track %} data-rel-display="{{ x9.key }}"{% endif %}>{{ x9.display }}</span> now. It's a test build, so expect rough edges.</p>
         <p class="hero-actions" style="display:flex;flex-wrap:wrap;gap:10px;margin:0">
           {%- for o in R.os %}<a class="btn btn-primary btn-sm" href="/download/{{ o[0] }}/">XDM 9 for {{ o[1].name }}</a>{% endfor %}
         </p>
         {%- else %}
-        <p style="color:#aab0d6">Until then, XDM {{ site.current_version }} is the current release for Windows and Linux.</p>
+        <p style="color:#aab0d6">Until then, XDM 8 is the current release for Windows and Linux.</p>
         {%- endif %}
       </div>
       <div class="shot shot--tilt">
@@ -67,18 +71,20 @@ body_class: page-download-hub
     <p>Pick the system you use, then the processor. Each download page pre-selects the processor your computer appears to have.</p>
     <div class="table-wrap">
       <table class="version-table avail-table">
-        <thead><tr><th>System</th><th>Processor</th><th>XDM {{ site.current_version }}</th><th>XDM 9</th></tr></thead>
+        {%- assign x8 = R.releases | where: "key", "xdm8" | first %}
+        <thead><tr><th>System</th><th>Processor</th><th>XDM 9</th><th>XDM {{ x8.tag }}</th></tr></thead>
         <tbody>
           {%- for o in R.os %}
-            {%- assign archs = R.releases[0].platforms[o[0]] -%}
+            {%- assign okey = o[0] -%}
+            {%- assign archs = x9.platforms[okey] -%}
             {%- for a in archs %}
           <tr>
             {%- if forloop.first %}<td rowspan="{{ archs.size }}"><a href="/download/{{ o[0] }}/">{{ o[1].name }}</a></td>{% endif %}
             <td>{{ a.label }}<br><span class="muted" style="font-size:.85em">{{ a.hint }}</span></td>
             {%- assign has8 = false -%}
-            {%- for ra in R.releases[1].platforms[o[0]] %}{% if ra.arch == a.arch %}{% assign has8 = true %}{% endif %}{% endfor %}
-            <td>{% if has8 %}<span class="tag tag--ok">Available</span>{% else %}<span class="muted">—</span>{% endif %}</td>
-            <td>{% if R.releases[0].status == "pre-release" %}<a href="/download/{{ o[0] }}/#{{ a.arch }}"><span class="tag tag--warn">Pre-release</span></a>{% elsif R.releases[0].status == "available" %}<span class="tag tag--ok">Available</span>{% else %}<span class="tag tag--brand">Coming soon</span>{% endif %}</td>
+            {%- for ra in x8.platforms[okey] %}{% if ra.arch == a.arch %}{% assign has8 = true %}{% endif %}{% endfor %}
+            <td>{% if x9.status == "pre-release" %}<a href="/download/{{ o[0] }}/#{{ a.arch }}"><span class="tag tag--warn">Pre-release</span></a>{% elsif x9.status == "available" %}<a href="/download/{{ o[0] }}/#{{ a.arch }}"><span class="tag tag--ok">Available</span></a>{% else %}<span class="tag tag--brand">Coming soon</span>{% endif %}</td>
+            <td>{% if has8 %}<span class="tag">Previous version</span>{% else %}<span class="muted">—</span>{% endif %}</td>
           </tr>
             {%- endfor %}
           {%- endfor %}
@@ -94,10 +100,12 @@ body_class: page-download-hub
     </ul>
 
 
-    <h3>Should I use the XDM 9 pre-release?</h3>
-    <p>Use it if you're on a Mac or an ARM computer (there's no stable XDM for those yet), or if you want the new features
-      and don't mind reporting a bug now and then. If you need XDM to just work, stay on XDM {{ site.current_version }} until
-      the stable XDM 9 release. Installing XDM 9 replaces XDM 8.</p>
+    <h3>Should I upgrade from XDM 8?</h3>
+    <p>Yes. XDM 9 is the stable release now, with native builds for Mac and ARM computers and the new features above.
+      Installing XDM 9 replaces XDM 8. See <a href="/guide/update-and-migrate/">Update &amp; migrate</a> for what carries over.</p>
+    <h3>Are there test builds?</h3>
+    <p>Sometimes. When a pre-release newer than the stable version is out, the download pages list it below the stable
+      release. It's for testing new fixes early, so expect rough edges.</p>
 
     <h2 id="safe">Safe, clean and free</h2>
     <p>XDM is open-source software, built in public on <a href="{{ site.github_url }}" rel="noopener">GitHub</a>. The installers
