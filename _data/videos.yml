@@ -1,0 +1,10 @@
+# XDM videos on YouTube, shown by _includes/video-cards.html. Same videos as the README in the xdm repo.
+# `thumb` is a local copy of the README thumbnail (assets/img/video/), so the page loads nothing from YouTube.
+- title: XDM setup guide
+  summary: How to install XDM and set it up with your browser.
+  url: https://www.youtube.com/watch?v=H_wdSvOBqKA&t=19s
+  thumb: /assets/img/video/xdm-setup-guide.jpg
+- title: Top 3 XDM features
+  summary: A quick tour of the three XDM features people use most.
+  url: https://www.youtube.com/watch?v=WS0WH1BZ9xo
+  thumb: /assets/img/video/xdm-top-3-features.jpg

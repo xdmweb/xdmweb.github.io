@@ -21,7 +21,7 @@ issues_url: https://github.com/subhra74/xdm/issues
 # SignPath Foundation requires a "Code signing policy" link on the home and download pages.
 code_signing_policy_url: https://github.com/subhra74/xdm/blob/master/CODE_SIGNING_POLICY.md
 # Extension store links live in _data/extension_stores.yml.
-# redirect.html and xdm-firefox/ are legacy XDM 7 redirects; leave them alone.
+# redirect.html and xdm-firefox/ are legacy XDM 7 redirects. They point at our /extension/ pages, never a store.
 
 markdown: kramdown
 kramdown:
@@ -39,6 +39,9 @@ collections:
   errors:
     output: true
     permalink: /help/errors/:name/
+  wiki:
+    output: true
+    permalink: /wiki/:name/
 
 defaults:
   - scope: { path: "", type: guides }
@@ -47,6 +50,8 @@ defaults:
     values: { layout: article, section: help, section_title: Help & Troubleshooting, section_url: /help/ }
   - scope: { path: "", type: errors }
     values: { layout: article, section: errors, section_title: Download errors, section_url: /help/#errors }
+  - scope: { path: "", type: wiki }
+    values: { layout: article, section: wiki, section_title: XDM Wiki, section_url: /wiki/ }
 
 exclude:
   - README.md

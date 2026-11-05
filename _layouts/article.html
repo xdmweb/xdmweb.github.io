@@ -29,6 +29,10 @@ body_class: page-article
 
 <div class="container article-layout">
   <article class="prose" id="article">
+    {%- if page.section == "wiki" %}
+    {% include star-cta.html %}
+    {%- endif %}
+
     {{ content }}
 
     <aside class="callout callout--help">

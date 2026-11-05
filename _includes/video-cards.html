@@ -1,0 +1,10 @@
+{%- comment -%} The XDM YouTube videos from _data/videos.yml, as linked cards (no embedded player). {%- endcomment -%}
+<div class="card-grid card-grid--2 video-cards">
+  {%- for v in site.data.videos %}
+  <a class="card card--link video-card" href="{{ v.url }}" rel="noopener" target="_blank">
+    <span class="video-thumb"><img src="{{ v.thumb }}" alt="" width="960" height="540" loading="lazy"><span class="video-play" aria-hidden="true">▶</span></span>
+    <h3>{{ v.title }}</h3>
+    <p>{{ v.summary }} <span class="video-src">Watch on YouTube ↗</span></p>
+  </a>
+  {%- endfor %}
+</div>

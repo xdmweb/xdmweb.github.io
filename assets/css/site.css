@@ -767,3 +767,24 @@ code, kbd { font-family: var(--mono); font-size: .86em; }
   .help-fab-label { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .help-fab { transition: none; } .help-fab:hover { transform: none; } }
+
+/* ---------- Support page and "Star on GitHub" box ---------- */
+.support-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 1.2em 0 1.4em; }
+.prose .support-actions .btn, .prose .star-cta .btn { text-decoration: none; }
+.prose .btn-primary, .prose .btn-primary:hover { color: #fff; }
+.prose .btn-ghost, .prose .btn-ghost:hover { color: var(--text); }
+.star-cta .btn { margin-top: .2em; }
+@media (max-width: 520px) { .support-actions .btn { width: 100%; white-space: normal; } }
+
+/* ---------- YouTube video cards ---------- */
+.video-cards { margin: 1.2em 0 1.6em; }
+.prose .video-card, .prose .video-card:hover { color: var(--text); text-decoration: none; }
+.video-card { padding: 0 0 18px; overflow: hidden; }
+.video-card h3, .video-card p { padding: 0 18px; }
+.video-card h3 { margin-top: 14px !important; }
+.video-thumb { position: relative; display: block; aspect-ratio: 16 / 9; background: var(--bg-alt); }
+.video-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; margin: 0; border-radius: 0; }
+.video-play { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%, -50%); width: 56px; height: 56px;
+  display: grid; place-items: center; border-radius: 50%; background: rgba(0, 0, 0, .62); color: #fff; font-size: 1.3rem; }
+.video-card:hover .video-play { background: #e5322d; }
+.video-src { display: block; margin-top: .35em; font-weight: 600; color: var(--brand); }
