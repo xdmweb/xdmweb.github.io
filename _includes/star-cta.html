@@ -1,0 +1,9 @@
+{%- comment -%}
+  "Star XDM on GitHub" box. Use: {% include star-cta.html %} (optional: title="…", text="…").
+  Stars are how most people find XDM on GitHub, so this goes on the pages people reach right after getting XDM.
+{%- endcomment -%}
+<aside class="callout callout--tip star-cta">
+  <p class="callout-title">{{ include.title | default: "Enjoying XDM? Star it on GitHub" }}</p>
+  <p>{{ include.text | default: "XDM is free and open source. A star takes two seconds, needs only a free GitHub account, and helps more people find XDM." }}</p>
+  <p><a class="btn btn-primary" href="{{ site.github_url }}" rel="noopener">⭐ Star XDM on GitHub</a></p>
+</aside>

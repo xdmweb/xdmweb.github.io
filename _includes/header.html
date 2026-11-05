@@ -7,6 +7,7 @@
     </a>
     <nav class="main-nav" id="main-nav" aria-label="Main">
       <a href="/guide/" {% if page.section == "guide" or page.url == "/guide/" %}aria-current="page"{% endif %}>User Guide</a>
+      <a href="/wiki/" {% if page.section == "wiki" or page.url == "/wiki/" %}aria-current="page"{% endif %}>Wiki</a>
       <a href="/guide/download-streaming-video/" {% if page.url == "/guide/download-streaming-video/" %}aria-current="page"{% endif %}>Video Download</a>
       <a href="/help/" {% if page.section == "help" or page.section == "errors" or page.url == "/help/" %}aria-current="page"{% endif %}>Help &amp; Errors</a>
       <a href="/faq/" {% if page.url == "/faq/" %}aria-current="page"{% endif %}>FAQ</a>

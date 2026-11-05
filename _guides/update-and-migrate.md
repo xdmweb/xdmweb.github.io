@@ -12,6 +12,13 @@ related:
   - /guide/install-macos/
 ---
 
+<div class="callout callout--warn">
+<p class="callout-title">Still on XDM 8?</p>
+<p>XDM 8 is no longer updated. Menus in XDM 8 that open help now bring you here: move to XDM 9 with the steps below,
+then see the <a href="/wiki/">XDM wiki</a> for every feature and how to use it. The old XDM 8 notes are still on the
+<a href="https://github.com/subhra74/xdm/wiki" rel="noopener">GitHub wiki</a>.</p>
+</div>
+
 ## How updates work
 
 XDM checks for a new version in the background. When one is available, the main window shows *A newer
@@ -49,3 +56,5 @@ list or settings**. Before upgrading:
 
 XDM 8 and XDM 9 use the same local connection, so only one can run at a time. After upgrading, install
 the extension version the XDM 9 setup window offers, and remove older XDM extensions from the browser.
+
+{% include star-cta.html %}

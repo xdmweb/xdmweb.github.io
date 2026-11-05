@@ -51,6 +51,8 @@ If the popup says **XDM isn't running**, start the app. If it says **Site access
   [Refresh link](/guide/refresh-link/).
 
 
+{% include star-cta.html %}
+
 ## Your privacy
 
 The extension sends download details only to the XDM app on your own computer (`127.0.0.1`). It has no server,
