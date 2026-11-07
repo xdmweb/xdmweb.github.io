@@ -51,8 +51,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="/assets/css/site.css?v={{ site.time | date: '%s' }}">
 
-<!-- Google AdSense (Auto ads) -->
+<!-- Google AdSense (Auto ads). A page with `ads: false` in its front matter loads no ad script (e.g. the
+     Android app's privacy policy, which states the app has no ads). -->
+{%- unless page.ads == false %}
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense_client }}" crossorigin="anonymous"></script>
+{%- endunless %}
 <meta name="google-adsense-account" content="{{ site.adsense_client }}">
 
 {%- if page.url == "/" %}
