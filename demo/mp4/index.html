@@ -1,0 +1,108 @@
+---
+layout: default
+title: Sample videos
+description: "Open movies from the Blender Foundation as single MP4 files, for trying video capture in XDM."
+ads: false
+robots: noindex
+---
+{%- comment -%}
+  Test page for XDM's video capture (store screenshots, manual checks), single MP4 files. `ads: false` keeps the
+  AdSense script off the page and `robots: noindex` keeps it out of search results and sitemap.xml. The files are
+  Blender Foundation open movies (CC BY) on download.blender.org and archive.org; if one goes offline, swap its URL
+  in the buttons below. HLS streams are on the sibling page demo/video.
+{%- endcomment -%}
+<style>
+  .demo { padding: 40px 0 64px; }
+  .demo h1 { margin: 0 0 6px; }
+  .demo .lead { color: var(--muted); margin: 0 0 22px; }
+  .demo-player {
+    background: #000; border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow); aspect-ratio: 16 / 9;
+  }
+  .demo-player video { display: block; width: 100%; height: 100%; background: #000; }
+  .demo-films { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 10px; }
+  .demo-film {
+    font: inherit; cursor: pointer; text-align: left;
+    padding: 10px 14px; border-radius: 12px;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  }
+  .demo-film small { display: block; color: var(--muted); font-size: .8rem; margin-top: 2px; }
+  .demo-film[aria-pressed="true"] { border-color: var(--brand); box-shadow: 0 0 0 2px var(--brand) inset; }
+  .demo-title { margin: 18px 0 4px; font-size: 1.25rem; }
+  .demo-about { color: var(--muted); margin: 0; }
+  .demo-credit { color: var(--muted); font-size: .85rem; margin-top: 28px; }
+  @media (max-width: 600px) {
+    .demo { padding: 20px 0 40px; }
+    .demo-film { flex: 1 1 calc(50% - 10px); }
+  }
+</style>
+
+<section class="demo">
+  <div class="container">
+    <h1>Sample videos</h1>
+    <p class="lead">Open movies from the Blender Foundation, each a single MP4 file. Play one and XDM offers to download it.
+      For streams in several qualities, see <a href="/demo/video/">sample streams</a>.</p>
+
+    <div class="demo-player">
+      <video id="demo-video" controls playsinline preload="metadata"></video>
+    </div>
+
+    <div class="demo-films" role="group" aria-label="Choose a film">
+      <button type="button" class="demo-film"
+              data-src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"
+              data-title="Big Buck Bunny (2008)"
+              data-about="A giant rabbit takes on three bullying rodents. A single MP4 file.">
+        Big Buck Bunny<small>Video file · 360p</small>
+      </button>
+      <button type="button" class="demo-film"
+              data-src="https://archive.org/download/ElephantsDream/ed_hd.mp4"
+              data-title="Elephants Dream (2006)"
+              data-about="Two men explore a strange, endless machine. A single MP4 file.">
+        Elephants Dream<small>Video file · 360p</small>
+      </button>
+      <button type="button" class="demo-film"
+              data-src="https://download.blender.org/durian/trailer/sintel_trailer-720p.mp4"
+              data-title="Sintel (2010), trailer"
+              data-about="A young woman searches for her lost dragon. A single MP4 file.">
+        Sintel<small>Video file · 720p</small>
+      </button>
+      <button type="button" class="demo-film"
+              data-src="https://archive.org/download/Tears-of-Steel/tears_of_steel_720p.mp4"
+              data-title="Tears of Steel (2012)"
+              data-about="Scientists in a future Amsterdam try to save the world from robots. A single MP4 file.">
+        Tears of Steel<small>Video file · 720p</small>
+      </button>
+    </div>
+
+    <h2 class="demo-title" id="demo-title"></h2>
+    <p class="demo-about" id="demo-about"></p>
+
+    <p class="demo-credit">
+      Big Buck Bunny, Elephants Dream, Sintel and Tears of Steel © Blender Foundation |
+      <a href="https://www.blender.org" rel="noopener">www.blender.org</a>, licensed under
+      <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a>
+      (Elephants Dream: <a href="https://creativecommons.org/licenses/by/2.5/" rel="noopener">CC BY 2.5</a>).
+    </p>
+  </div>
+</section>
+
+<script>
+(function () {
+  var video = document.getElementById('demo-video');
+  var title = document.getElementById('demo-title');
+  var about = document.getElementById('demo-about');
+  var buttons = document.querySelectorAll('.demo-film');
+
+  function play(btn) {
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+    title.textContent = btn.dataset.title;
+    about.textContent = btn.dataset.about;
+    video.src = btn.dataset.src;
+  }
+
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () { play(b); video.play().catch(function () {}); });
+  });
+  play(buttons[0]);
+})();
+</script>
