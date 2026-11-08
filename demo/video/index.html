@@ -1,14 +1,15 @@
 ---
 layout: default
-title: Sample videos
-description: "Open movies from the Blender Foundation, for trying video capture in XDM."
+title: Sample streams
+description: "Open movies from the Blender Foundation as HLS streams, for trying stream capture in XDM."
 ads: false
 robots: noindex
 ---
 {%- comment -%}
   Test page for XDM's video capture (store screenshots, manual checks). `ads: false` keeps the AdSense script off
   the page and `robots: noindex` keeps it out of search results and sitemap.xml. The streams are third-party public
-  test streams of Blender Foundation open movies (CC BY); if one goes offline, swap its URL in the buttons below.
+  HLS test streams of Blender Foundation open movies (CC BY); if one goes offline, swap its URL in the buttons below.
+  Single MP4 files are on the sibling page demo/mp4.
   Pick streams with a clean picture: some public test streams burn a bitrate overlay or a vendor logo into the video.
 {%- endcomment -%}
 <style>
@@ -39,8 +40,9 @@ robots: noindex
 
 <section class="demo">
   <div class="container">
-    <h1>Sample videos</h1>
-    <p class="lead">Open movies from the Blender Foundation. Play one and XDM offers to download it.</p>
+    <h1>Sample streams</h1>
+    <p class="lead">Open movies from the Blender Foundation, streamed over HLS in several qualities. Play one and XDM offers to download it.
+      For single video files, see <a href="/demo/mp4/">sample videos</a>.</p>
 
     <div class="demo-player">
       <video id="demo-video" controls playsinline preload="metadata"></video>
@@ -48,18 +50,16 @@ robots: noindex
 
     <div class="demo-films" role="group" aria-label="Choose a film">
       <button type="button" class="demo-film"
-              data-type="hls"
               data-src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
               data-title="Big Buck Bunny (2008)"
               data-about="A giant rabbit takes on three bullying rodents. Streamed in several qualities.">
         Big Buck Bunny<small>Stream · several qualities</small>
       </button>
       <button type="button" class="demo-film"
-              data-type="mp4"
-              data-src="https://download.blender.org/durian/trailer/sintel_trailer-720p.mp4"
-              data-title="Sintel (2010), trailer"
-              data-about="A young woman searches for her lost dragon. A single 720p video file.">
-        Sintel<small>Video file · 720p</small>
+              data-src="https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+              data-title="Tears of Steel (2012)"
+              data-about="Scientists in a future Amsterdam try to save the world from robots. Streamed in several qualities.">
+        Tears of Steel<small>Stream · several qualities</small>
       </button>
     </div>
 
@@ -67,7 +67,7 @@ robots: noindex
     <p class="demo-about" id="demo-about"></p>
 
     <p class="demo-credit">
-      Big Buck Bunny and Sintel © Blender Foundation |
+      Big Buck Bunny and Tears of Steel © Blender Foundation |
       <a href="https://www.blender.org" rel="noopener">www.blender.org</a>, licensed under
       <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a>.
     </p>
@@ -91,7 +91,7 @@ robots: noindex
     video.removeAttribute('src');
     var src = btn.dataset.src;
     // Native HLS where the browser has it (Safari, Android WebView), hls.js elsewhere.
-    if (btn.dataset.type === 'hls' && !video.canPlayType('application/vnd.apple.mpegurl') &&
+    if (!video.canPlayType('application/vnd.apple.mpegurl') &&
         window.Hls && Hls.isSupported()) {
       hls = new Hls();
       hls.loadSource(src);
