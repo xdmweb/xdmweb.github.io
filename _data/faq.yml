@@ -56,7 +56,7 @@
   a: No. The XDM app and extension don't collect or send your data to the developer. The extension only talks to the XDM app running on your own computer. This website uses Google AdSense. See the [privacy policy](/privacy.html).
   cat: Privacy
 - q: Where are XDM's settings and download list stored?
-  a: In the hidden .xdm-app folder in your home folder (~/.xdm-app on macOS and Linux, %USERPROFILE%\.xdm-app on Windows).
+  a: In XDM's data folder, which is %LOCALAPPDATA%\xdm-app on Windows, ~/Library/Application Support/xdm-app on macOS and ~/.local/share/xdm-app on Linux (~/.var/app/com.xtremedownloadmanager.XDM for the Flatpak version).
   cat: Privacy
 - q: How do I report a bug or request a feature?
   a: Open an issue on [GitHub](https://github.com/subhra74/xdm/issues) with your XDM version, operating system and steps to reproduce, or start a discussion on the [community forum](https://github.com/subhra74/xdm/discussions).

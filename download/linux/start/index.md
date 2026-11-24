@@ -2,7 +2,7 @@
 layout: download-start
 os: linux
 title: Downloading XDM for Linux
-description: "Your Xtreme Download Manager download for Linux is starting. Install the package with apt, dnf or pacman, then connect your browser."
+description: "Your Xtreme Download Manager download for Linux is starting. Install the package with apt, dnf, pacman or flatpak, then connect your browser."
 robots: noindex
 ---
 
@@ -15,6 +15,7 @@ Open a terminal in your Downloads folder (`cd ~/Downloads`) and run the command 
 | .deb (Ubuntu, Debian, Mint) | `sudo apt install ./xdm*.deb` |
 | .rpm (Fedora, openSUSE) | `sudo dnf install ./xdm*.rpm` |
 | .pkg.tar.zst (Arch, Manjaro) | `sudo pacman -U xdm*.pkg.tar.zst` |
+| .flatpak (any distribution) | `flatpak install --user xdm-app-*.flatpak`, or open it in GNOME Software / KDE Discover |
 | .tar.gz (any distribution) | `tar xzf xdm-app-*.tar.gz && ./xdm-app/bin/xdm-app` |
 
 Then start **Xtreme Download Manager** from your applications menu.
@@ -36,4 +37,5 @@ Then start **Xtreme Download Manager** from your applications menu.
 - **Dependency errors with dpkg**: use `apt install ./file.deb`, not `dpkg -i`.
 - **XDM 8 still installed**: the new package replaces `xdman`; see [Update &amp; migrate](/guide/update-and-migrate/).
 - **No tray icon on GNOME**: install the AppIndicator extension.
+- **`flatpak: command not found`**: install Flatpak first (`sudo apt install flatpak` on Ubuntu).
 - Everything else: the [help center](/help/).

@@ -33,8 +33,10 @@ As a last resort, quit XDM and rename its settings folder so XDM starts fresh:
 
 | OS | Folder |
 |---|---|
-| Windows | `%USERPROFILE%\.xdm-app` |
-| macOS / Linux | `~/.xdm-app` |
+| Windows | `%LOCALAPPDATA%\xdm-app` |
+| macOS | `~/Library/Application Support/xdm-app` |
+| Linux | `~/.local/share/xdm-app` |
+| Linux (Flatpak) | `~/.var/app/com.xtremedownloadmanager.XDM/data/xdm-app` |
 
 Renaming (instead of deleting) lets you go back. The folder also holds your download list.
 

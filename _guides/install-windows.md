@@ -76,7 +76,7 @@ or off in <span class="ui">Settings → Advanced → Launch at login</span>.
 ## Uninstall
 
 Open <em>Settings → Apps → Installed apps</em>, find <em>Xtreme Download Manager</em> and choose
-<span class="ui">Uninstall</span>. Your settings and download list in <code>%USERPROFILE%\.xdm-app</code> are kept
+<span class="ui">Uninstall</span>. Your settings and download list in <code>%LOCALAPPDATA%\xdm-app</code> are kept
 in case you reinstall. Delete that folder for a clean removal.
 
 <div class="callout callout--warn">

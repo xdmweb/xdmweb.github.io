@@ -29,8 +29,8 @@ Internal errors are bugs, and reports help fix them. Open an issue on
 
 - your XDM version (<span class="ui">☰ menu → About XDM...</span>) and operating system,
 - what you were downloading and how (browser, pasted link, video),
-- the log files from the <code>logs</code> folder inside XDM's settings folder
-  (<code>~/.xdm-app</code> on macOS and Linux, <code>%USERPROFILE%\.xdm-app</code> on Windows).
+- the log files from the <code>logs</code> folder inside XDM's data folder
+  (<code>%LOCALAPPDATA%\xdm-app</code> on Windows, <code>~/Library/Application Support/xdm-app</code> on macOS, <code>~/.local/share/xdm-app</code> on Linux).
 
 <div class="callout callout--note">
 <p class="callout-title">Privacy</p>
