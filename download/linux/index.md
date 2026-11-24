@@ -2,9 +2,9 @@
 layout: download-os
 os: linux
 title: Download XDM for Linux
-seo_title: "Download Xtreme Download Manager for Linux (deb, rpm, Arch, x64 & ARM64)"
-description: "Download Xtreme Download Manager for Linux: .deb for Ubuntu/Debian, .rpm for Fedora/openSUSE, Arch packages and tar.gz, for x86-64 and ARM64."
-lead: "Native packages for Ubuntu, Debian, Fedora, openSUSE and Arch, plus a tar.gz that runs anywhere."
+seo_title: "Download Xtreme Download Manager for Linux (deb, rpm, Arch, Flatpak, x64 & ARM64)"
+description: "Download Xtreme Download Manager for Linux: .deb for Ubuntu/Debian, .rpm for Fedora/openSUSE, Arch packages, a Flatpak bundle and tar.gz, for x86-64 and ARM64."
+lead: "Native packages for Ubuntu, Debian, Fedora, openSUSE and Arch, plus a Flatpak bundle and a tar.gz that run anywhere."
 unavailable_note:
   arm64: "XDM 8 is available for x86-64 only. Native ARM64 packages arrive with XDM 9."
 ---
@@ -16,10 +16,15 @@ unavailable_note:
 | Ubuntu, Debian, Mint, Pop!_OS | `sudo apt install ./xdm-app_*.deb` |
 | Fedora, RHEL, openSUSE | `sudo dnf install ./xdm-app-*.rpm` |
 | Arch, Manjaro, EndeavourOS | `sudo pacman -U xdm-app-*.pkg.tar.zst` |
+| Any distribution with Flatpak | `flatpak install --user xdm-app-*-linux-*.flatpak` |
 | Any other distribution | `tar xzf xdm-app-*-linux-*.tar.gz && ./xdm-app/bin/xdm-app` |
 
 Run the command in the folder you downloaded to (usually `~/Downloads`). XDM 8 packages are named
 `xdman_gtk`; the commands are the same with that name. Details: [Install XDM on Linux](/guide/install-linux/).
+
+The Flatpak bundle also opens in GNOME Software or KDE Discover with a double-click. It doesn't update through
+Flathub: to update, quit XDM and install the newer bundle from this page.
+[More about the Flatpak version](/guide/install-linux/#the-flatpak-version).
 
 
 ## x86-64 or ARM64?

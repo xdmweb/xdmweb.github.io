@@ -66,4 +66,4 @@ with</span>, macOS asks for permission the first time. If you said no earlier, X
 ## Uninstall
 
 Quit XDM, then drag it from Applications to the Bin. To remove settings and the download list as
-well, delete the hidden folder <code>~/.xdm-app</code>.
+well, delete the folder <code>~/Library/Application Support/xdm-app</code> (in Finder: <em>Go → Go to Folder…</em>).

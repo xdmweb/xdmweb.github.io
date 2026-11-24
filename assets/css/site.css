@@ -724,12 +724,14 @@ code, kbd { font-family: var(--mono); font-size: .86em; }
 .fi-stroke { stroke: var(--fi); }
 .fi-band { fill: var(--fi); }
 .fi-label { fill: #fff; font: 800 8.6px/1 var(--font, system-ui, sans-serif); letter-spacing: .06em; }
+.fi-label--long { font-size: 6px; letter-spacing: 0; }
 .file-icon--msi { --fi: #0a74d9; }
 .file-icon--store { --fi: #2563eb; }
 .file-icon--dmg { --fi: #55606f; }
 .file-icon--deb { --fi: #d70a53; }
 .file-icon--rpm { --fi: #3c6eb4; }
 .file-icon--arch { --fi: #1793d1; }
+.file-icon--flatpak { --fi: #7048c8; }
 .file-icon--tgz { --fi: #c27a0e; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .file-icon--dmg { --fi: #9aa4b4; } }
 :root[data-theme="dark"] .file-icon--dmg { --fi: #9aa4b4; }

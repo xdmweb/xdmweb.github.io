@@ -46,7 +46,7 @@ pre-release below the stable version.
 
 ### Settings and download list
 
-XDM 9 keeps its data in a new place (`.xdm-app` in your home folder) and **doesn't import XDM 8's download
+XDM 9 keeps its data in a new place (`%LOCALAPPDATA%\xdm-app`, `~/Library/Application Support/xdm-app` or `~/.local/share/xdm-app`) and **doesn't import XDM 8's download
 list or settings**. Before upgrading:
 
 - let unfinished XDM 8 downloads complete, or note their links,

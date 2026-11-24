@@ -260,7 +260,7 @@ body_class: page-home
           <a class="os-card" href="/download/{{ o[0] }}/" data-os-link="{{ o[0] }}">
             {% assign okey = o[0] %}<span class="os-card-icon" aria-hidden="true">{% include os-icon.html os=okey %}</span>
             <strong>{{ o[1].name }}</strong>
-            <span>{% if o[0] == "windows" %}MSI · x64, ARM64{% elsif o[0] == "macos" %}DMG · Apple silicon, Intel{% else %}deb · rpm · Arch · tar.gz{% endif %}</span>
+            <span>{% if o[0] == "windows" %}MSI · x64, ARM64{% elsif o[0] == "macos" %}DMG · Apple silicon, Intel{% else %}deb · rpm · Arch · Flatpak · tar.gz{% endif %}</span>
           </a>
           {%- endfor %}
         </div>
